@@ -3,6 +3,7 @@ package com.java_backend_code_challenge.user.controller;
 import com.java_backend_code_challenge.user.model.User;
 import com.java_backend_code_challenge.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +19,8 @@ public class UserController {
     }
 
     @GetMapping("/api/users/")
-    public String getListUsers(){
-        StringBuilder SB = new StringBuilder();
-        for (User user : userService.get_List_of_Users()){
-            SB.append(user.toString());
-        }
-        return SB.toString();
+    public ResponseEntity<List<User>> getListUsers(){
+        return ResponseEntity.ok(userService.get_List_of_Users());
     };
 
     @GetMapping("/api/users/{username}/")
