@@ -1,6 +1,6 @@
 package com.java_backend_code_challenge.user.service;
 
-import com.java_backend_code_challenge.user.repository.userRepository;
+import com.java_backend_code_challenge.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.java_backend_code_challenge.user.model.User;
@@ -11,7 +11,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    private userRepository repository;
+    private UserRepository repository;
 
     public List<User> get_List_of_Users() {
         return repository.findAll();
