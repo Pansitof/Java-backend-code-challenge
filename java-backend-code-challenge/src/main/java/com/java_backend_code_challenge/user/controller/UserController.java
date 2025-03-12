@@ -19,8 +19,8 @@ public class UserController {
     }
 
     @GetMapping("/api/users/")
-    public ResponseEntity<List<User>> getListUsers(){
-        return ResponseEntity.ok(userService.get_List_of_Users());
+    public ResponseEntity<List<User>> getUsers(){
+        return ResponseEntity.ok(userService.getUsers());
     };
 
     @GetMapping("/api/users/{username}/")
