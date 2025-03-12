@@ -1,4 +1,4 @@
-package com.java_backend_code_challenge.userHexagon.domain;
+package com.java_backend_code_challenge.HexagonUser.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
