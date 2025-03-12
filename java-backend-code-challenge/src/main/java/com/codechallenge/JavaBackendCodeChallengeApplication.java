@@ -1,4 +1,4 @@
-package com.java_backend_code_challenge;
+package com.codechallenge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

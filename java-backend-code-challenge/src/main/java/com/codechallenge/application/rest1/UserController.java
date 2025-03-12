@@ -1,7 +1,6 @@
-package com.java_backend_code_challenge.user.controller;
+package com.codechallenge.application.rest1;
 
-import com.java_backend_code_challenge.user.model.User;
-import com.java_backend_code_challenge.user.service.UserService;
+import com.codechallenge.hexagon.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,12 @@ public class UserController {
     }
 
     @GetMapping("/api/users/")
-    public ResponseEntity<List<User>> getUsers(){
-        return ResponseEntity.ok(userService.getUsers());
+    public ResponseEntity<List<UserDto>> getUsers(){
+        List<User> users = userService.getUsers();
+        List<UserDto> userDtoList = users.stream().map(user -> {
+            return new UserDto(user.username(),user.name(),user.email(),user.gender(),user.pic());
+        }).toList();
+        return ResponseEntity.ok(userDtoList);
     };
 
     @GetMapping("/api/users/{username}/")

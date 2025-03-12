@@ -1,4 +1,4 @@
-package com.java_backend_code_challenge.hexagon.domain;
+package com.codechallenge.application.rest1.userrepositoryadapter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="User")
-public class HexagonUser {
+public class UserEntity {
     @Id
     private String username;
     private String name;
@@ -14,8 +14,8 @@ public class HexagonUser {
     private String gender;
     private String picture;
 
-    public HexagonUser(){}
-    public HexagonUser(String username,String name, String email, String gender, String picture) {
+    public UserEntity(){}
+    public UserEntity(String username, String name, String email, String gender, String picture) {
         this.username = username;
         this.name = name;
         this.email = email;
@@ -50,7 +50,7 @@ public class HexagonUser {
                 "   name='" + name + "',\n" +
                 "   email='" + email + "',\n" +
                 "   gender='" + gender +  "',\n" +
-                "   picture='" + picture + "',\n" +
+                "   pic='" + picture + "',\n" +
                 "}\n";
     }
 }
