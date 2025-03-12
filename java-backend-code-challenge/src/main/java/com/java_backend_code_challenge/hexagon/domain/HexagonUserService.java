@@ -1,7 +1,5 @@
-package com.java_backend_code_challenge.HexagonUser.domain;
+package com.java_backend_code_challenge.hexagon.domain;
 
-import com.java_backend_code_challenge.user.model.User;
-import com.java_backend_code_challenge.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

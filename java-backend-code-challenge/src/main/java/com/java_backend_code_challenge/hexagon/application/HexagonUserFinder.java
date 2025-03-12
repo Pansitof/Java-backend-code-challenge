@@ -1,9 +1,7 @@
-package com.java_backend_code_challenge.HexagonUser.application;
+package com.java_backend_code_challenge.hexagon.application;
 
-import com.java_backend_code_challenge.HexagonUser.domain.HexagonUser;
-import com.java_backend_code_challenge.HexagonUser.domain.HexagonUserService;
-import com.java_backend_code_challenge.user.model.User;
-import com.java_backend_code_challenge.user.service.UserService;
+import com.java_backend_code_challenge.hexagon.domain.HexagonUser;
+import com.java_backend_code_challenge.hexagon.domain.HexagonUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.java_backend_code_challenge.HexagonUser.domain;
+package com.java_backend_code_challenge.hexagon.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

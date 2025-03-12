@@ -17,7 +17,7 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User get_User(String username) {
+    public User getUser(String username) {
         return repository.findById(username).get();
     }
 }

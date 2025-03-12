@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService){
@@ -24,8 +24,8 @@ public class UserController {
     };
 
     @GetMapping("/api/users/{username}/")
-    public String getIndividualUser(@PathVariable String username){
-        return userService.get_User(username).toString();
+    public ResponseEntity<User> getUser(@PathVariable String username){
+        return ResponseEntity.ok(userService.getUser(username));
     };
 
 }
