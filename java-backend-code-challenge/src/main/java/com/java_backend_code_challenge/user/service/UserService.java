@@ -15,15 +15,9 @@ public class UserService {
 
     public List<User> get_List_of_Users() {
         return repository.findAll();
-
     }
 
-    public Object get_User(String username) {
-        return repository.findById(username);
-    }
-
-    public Object save_new_user(User user) {
-        repository.save(user);
-        return "Saved";
+    public User get_User(String username) {
+        return repository.findById(username).get();
     }
 }

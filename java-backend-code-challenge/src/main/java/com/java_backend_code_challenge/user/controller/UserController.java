@@ -26,15 +26,9 @@ public class UserController {
         return SB.toString();
     };
 
-    @GetMapping("/api/users/")
+    @GetMapping("/api/users/{username}/")
     public String getIndividualUser(@PathVariable String username){
         return userService.get_User(username).toString();
-    };
-
-
-    @PostMapping("/api/users/")
-    public String postUser(@RequestBody User user){
-        return userService.save_new_user(user).toString();
     };
 
 }
