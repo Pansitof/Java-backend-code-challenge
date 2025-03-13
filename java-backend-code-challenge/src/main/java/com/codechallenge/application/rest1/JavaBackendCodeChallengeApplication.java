@@ -1,4 +1,4 @@
-package com.codechallenge;
+package com.codechallenge.application.rest1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
