@@ -32,6 +32,9 @@ public class TerminalApplication {
                 case 1:
                     showUsers();
                     break;
+                default:
+                    System.out.println("Seleccione una opción válida:");
+                    break;
             }
         }while (seleccion !=0);
     }
