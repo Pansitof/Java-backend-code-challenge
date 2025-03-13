@@ -50,7 +50,7 @@ public class UserEntity {
                 "   name='" + name + "',\n" +
                 "   email='" + email + "',\n" +
                 "   gender='" + gender +  "',\n" +
-                "   pic='" + picture + "',\n" +
+                "   picture='" + picture + "',\n" +
                 "}\n";
     }
 }

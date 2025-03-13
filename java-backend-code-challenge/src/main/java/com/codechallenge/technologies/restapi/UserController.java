@@ -21,7 +21,7 @@ public class UserController {
     public ResponseEntity<List<UserDto>> getUsers(){
         List<User> users = userService.getUsers();
         List<UserDto> userDtoList = users.stream().map(user -> {
-            return new UserDto(user.username(),user.name(),user.email(),user.gender(),user.pic());
+            return new UserDto(user.username(),user.name(),user.email(),user.gender(),user.picture());
         }).toList();
         return ResponseEntity.ok(userDtoList);
     };
