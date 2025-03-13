@@ -12,9 +12,10 @@ import java.util.List;
 
 public class FileSystemUserRepository implements UserRepository {
 
+    private final File jsonFile = new File("src/main/resources/templates/data.json");
+
     @Override
     public List<User> getAll() {
-        File jsonFile = new File("src/main/resources/templates/data.json");
         List<User> users = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -30,13 +31,13 @@ public class FileSystemUserRepository implements UserRepository {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return users;
     }
 
     @Override
     public User getById(String username) {
-        return null;
+
+        return new User("username", "name", "email", "gender", "picture");
     }
 
     /*
