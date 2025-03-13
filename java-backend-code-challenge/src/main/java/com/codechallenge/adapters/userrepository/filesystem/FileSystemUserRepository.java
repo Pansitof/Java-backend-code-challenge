@@ -4,11 +4,6 @@ import com.codechallenge.application.User;
 import com.codechallenge.application.ports.driven.UserRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +32,11 @@ public class FileSystemUserRepository implements UserRepository {
         }
 
         return users;
+    }
+
+    @Override
+    public User getById(String username) {
+        return null;
     }
 
     /*

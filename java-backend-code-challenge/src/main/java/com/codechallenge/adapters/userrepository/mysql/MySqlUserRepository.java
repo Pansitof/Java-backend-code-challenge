@@ -22,4 +22,9 @@ public class MySqlUserRepository implements UserRepository {
            return new User(userEntity.username(),userEntity.name(),userEntity.email(),userEntity.gender(),userEntity.picture());
         }).toList();
     }
+
+    @Override
+    public User getById(String username) {
+        return null;
+    }
 }
