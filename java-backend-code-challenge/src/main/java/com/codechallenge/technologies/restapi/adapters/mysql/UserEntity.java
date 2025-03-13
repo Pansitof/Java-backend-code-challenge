@@ -1,4 +1,4 @@
-package com.codechallenge.adapters.userrepository.mysql;
+package com.codechallenge.technologies.restapi.adapters.mysql;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

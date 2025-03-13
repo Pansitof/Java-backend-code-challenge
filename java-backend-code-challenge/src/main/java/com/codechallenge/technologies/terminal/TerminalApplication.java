@@ -1,12 +1,10 @@
 package com.codechallenge.technologies.terminal;
 
-import com.codechallenge.adapters.userrepository.filesystem.FileSystemUserRepository;
-import com.codechallenge.application.User;
+import com.codechallenge.share.adapters.userrepository.FileSystemUserRepository;
 import com.codechallenge.application.UserFinder;
 import com.codechallenge.application.UsersFinder;
 import com.codechallenge.application.ports.driven.UserRepository;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class TerminalApplication {

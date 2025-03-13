@@ -1,4 +1,4 @@
-package com.codechallenge.adapters.userrepository.mysql;
+package com.codechallenge.technologies.restapi.adapters.mysql;
 
 import com.codechallenge.application.User;
 import com.codechallenge.application.ports.driven.UserRepository;
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MySqlUserRepository implements UserRepository {
+public class SpringBootMySqlUserRepository implements UserRepository {
 
     private JpaUserRepository jpaUserRepository;
 
-    public MySqlUserRepository(JpaUserRepository jpaUserRepository){
+    public SpringBootMySqlUserRepository(JpaUserRepository jpaUserRepository){
         this.jpaUserRepository = jpaUserRepository;
     }
 

@@ -1,4 +1,4 @@
-package com.codechallenge.adapters.userrepository.filesystem;
+package com.codechallenge.share.adapters.userrepository;
 
 import com.codechallenge.application.User;
 import com.codechallenge.application.ports.driven.UserRepository;
