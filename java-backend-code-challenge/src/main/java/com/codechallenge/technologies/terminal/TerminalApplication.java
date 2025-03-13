@@ -24,6 +24,7 @@ public class TerminalApplication {
 
     private void mainMenu() {
         int seleccion = 1;
+        scanner = new Scanner(System.in);
         do {
             showMenu();
             seleccion = scanner.nextInt();
@@ -36,7 +37,11 @@ public class TerminalApplication {
     }
 
     void showMenu() {
-
+        stringBuilder = new StringBuilder();
+        stringBuilder.append("1. Mostrar usuarios. \n");
+        stringBuilder.append("0. Cerrar Terminal. \n");
+        stringBuilder.append("Por favor. Seleccione Opción: \n");
+        System.out.println(stringBuilder.toString());
     }
 
     void showUsers() {
