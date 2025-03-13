@@ -16,7 +16,7 @@ public class UserManager {
         return new UsersFinder(repository).execute();
     }
 
-    public User getOne(String username) {
+    public User getUserById(String username) {
         return new UserFinder(repository).execute(username);
     }
 

@@ -1,8 +1,7 @@
 package com.codechallenge.technologies.terminal;
 
+import com.codechallenge.application.UserManager;
 import com.codechallenge.share.adapters.userrepository.FileSystemUserRepository;
-import com.codechallenge.application.UserFinder;
-import com.codechallenge.application.UsersFinder;
 import com.codechallenge.application.ports.driven.UserRepository;
 
 import java.util.Scanner;
@@ -15,8 +14,7 @@ public class TerminalApplication {
 
     UserRepository userRepository = new FileSystemUserRepository();
 
-    UsersFinder usersFinder = new UsersFinder(userRepository);
-    UserFinder userFinder = new UserFinder(userRepository);
+    UserManager userManager = new UserManager(userRepository);
 
     public static void main(String[] args) {
         TerminalApplication terminalApplication = new TerminalApplication();
@@ -31,11 +29,11 @@ public class TerminalApplication {
             seleccion = scanner.nextInt();
             switch (seleccion) {
                 case 1:
-                    visualizer.showUsers(usersFinder.execute());
+                    visualizer.showUsers(userManager.getUsers());
                     break;
                 case 2:
                     System.out.println("Introduzca el nombre de usuario");
-                    visualizer.showUserByUsername(userFinder.execute(scanner.nextLine()));
+                    visualizer.showUserByUsername(userManager.getUserById(new Scanner(System.in).nextLine()));
                     break;
                 default:
                     System.out.println("Seleccione una opción válida:");
