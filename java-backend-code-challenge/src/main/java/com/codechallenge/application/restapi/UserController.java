@@ -1,4 +1,4 @@
-package com.codechallenge.application.rest1;
+package com.codechallenge.application.restapi;
 
 import com.codechallenge.hexagon.User;
 import org.springframework.beans.factory.annotation.Autowired;

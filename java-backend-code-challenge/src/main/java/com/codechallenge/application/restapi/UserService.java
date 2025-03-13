@@ -1,4 +1,4 @@
-package com.codechallenge.application.rest1;
+package com.codechallenge.application.restapi;
 
 import com.codechallenge.hexagon.User;
 import com.codechallenge.hexagon.UsersFinder;

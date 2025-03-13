@@ -1,4 +1,4 @@
-package com.codechallenge.application.rest1.userrepositoryadapter;
+package com.codechallenge.application.restapi.userrepositoryadapter;
 
 import com.codechallenge.hexagon.User;
 import com.codechallenge.hexagon.ports.driven.UserRepository;

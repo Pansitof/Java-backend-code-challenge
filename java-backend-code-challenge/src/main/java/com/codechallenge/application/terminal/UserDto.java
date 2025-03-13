@@ -1,4 +1,4 @@
-package com.codechallenge.application.restconsola;
+package com.codechallenge.application.terminal;
 
 public record UserDto(String usuario,
                       String nombre,

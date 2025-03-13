@@ -1,4 +1,4 @@
-package com.codechallenge.application.rest1;
+package com.codechallenge.application.restapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

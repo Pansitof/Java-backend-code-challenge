@@ -1,4 +1,4 @@
-package com.codechallenge.application.rest1.userrepositoryadapter;
+package com.codechallenge.application.restapi.userrepositoryadapter;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

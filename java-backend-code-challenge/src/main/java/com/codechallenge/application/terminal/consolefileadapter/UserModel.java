@@ -1,4 +1,4 @@
-package com.codechallenge.application.restconsola.consolefileadapter;
+package com.codechallenge.application.terminal.consolefileadapter;
 
 public class UserModel {
 
