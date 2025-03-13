@@ -21,12 +21,7 @@ public class FileSystemUserRepository implements UserRepository {
         try {
             JsonNode jsonNode = objectMapper.readTree(jsonFile);
             for (JsonNode node : jsonNode) {
-                users.add(new User(
-                        node.get("username").asText(),
-                        node.get("name").asText(),
-                        node.get("email").asText(),
-                        node.get("gender").asText(),
-                        node.get("picture").asText()));
+                users.add(convertJsonNodeToUser(node));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -42,18 +37,23 @@ public class FileSystemUserRepository implements UserRepository {
             JsonNode jsonNode = objectMapper.readTree(jsonFile);
             for (JsonNode node : jsonNode) {
                 if (username.equals(node.get("username").asText())) {
-                    user = new User(
-                            node.get("username").asText(),
-                            node.get("name").asText(),
-                            node.get("email").asText(),
-                            node.get("gender").asText(),
-                            node.get("picture").asText());
+                    user = convertJsonNodeToUser(node);
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        return user;
+    }
+
+    private User convertJsonNodeToUser(JsonNode node){
+        User user = new User(
+                node.get("username").asText(),
+                node.get("name").asText(),
+                node.get("email").asText(),
+                node.get("gender").asText(),
+                node.get("picture").asText());
         return user;
     }
 

@@ -30,7 +30,7 @@ public class TerminalApplication {
         do {
             showMenu();
             seleccion = scanner.nextInt();
-            switch (seleccion){
+            switch (seleccion) {
                 case 1:
                     showUsers();
                     break;
@@ -41,25 +41,19 @@ public class TerminalApplication {
                     System.out.println("Seleccione una opción válida:");
                     break;
             }
-        }while (seleccion !=0);
+        } while (seleccion != 0);
     }
 
     private void showUserByUsername() {
         scanner = new Scanner(System.in);
         System.out.println("Introduzca el nombre de usuario");
-        String username = scanner.nextLine();
-        User user = userFinder.execute(username);
+        User user = userFinder.execute(scanner.nextLine());
 
-        if (user != null){
-        stringBuilder = new StringBuilder();
-        stringBuilder.append("\t name = '"+user.name()+"'\n");
-        stringBuilder.append("\t username = '"+user.username()+"'\n");
-        stringBuilder.append("\t email = '"+user.email()+"'\n");
-        stringBuilder.append("\t gender = '"+user.gender()+"'\n");
-        stringBuilder.append("\t picture = '"+user.picture()+"'\n");
-        System.out.println(stringBuilder.toString());
-        return;
+        if (user != null) {
+            System.out.println(converterUserToString(user));
+            return;
         }
+
         System.out.println("Usuario NO encotnrado");
     }
 
@@ -76,14 +70,20 @@ public class TerminalApplication {
     void showUsers() {
         List<User> users = usersFinder.execute();
         stringBuilder = new StringBuilder();
-        for (User user : users){
-            stringBuilder.append("\t name = '"+user.name()+"'\n");
-            stringBuilder.append("\t username = '"+user.username()+"'\n");
-            stringBuilder.append("\t email = '"+user.email()+"'\n");
-            stringBuilder.append("\t gender = '"+user.gender()+"'\n");
-            stringBuilder.append("\t picture = '"+user.picture()+"'\n");
+        for (User user : users) {
+            stringBuilder.append(converterUserToString(user));
             stringBuilder.append("---\n");
         }
         System.out.println(stringBuilder.toString());
     }
+
+    String converterUserToString(User user){
+        StringBuilder temporalstringBuilder = new StringBuilder();
+        temporalstringBuilder.append("\t name = '" + user.name() + "'\n");
+        temporalstringBuilder.append("\t username = '" + user.username() + "'\n");
+        temporalstringBuilder.append("\t email = '" + user.email() + "'\n");
+        temporalstringBuilder.append("\t gender = '" + user.gender() + "'\n");
+        temporalstringBuilder.append("\t picture = '" + user.picture() + "'\n");
+        return temporalstringBuilder.toString();
+    };
 }
