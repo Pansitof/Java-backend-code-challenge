@@ -1,7 +1,7 @@
-package com.codechallenge.application.restapi.userrepositoryadapter;
+package com.codechallenge.adapters.userrepository.mysql;
 
-import com.codechallenge.hexagon.User;
-import com.codechallenge.hexagon.ports.driven.UserRepository;
+import com.codechallenge.application.User;
+import com.codechallenge.application.ports.driven.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

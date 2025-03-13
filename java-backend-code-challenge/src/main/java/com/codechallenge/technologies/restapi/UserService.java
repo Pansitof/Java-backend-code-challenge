@@ -1,8 +1,8 @@
-package com.codechallenge.application.restapi;
+package com.codechallenge.technologies.restapi;
 
-import com.codechallenge.hexagon.User;
-import com.codechallenge.hexagon.UsersFinder;
-import com.codechallenge.hexagon.ports.driven.UserRepository;
+import com.codechallenge.application.User;
+import com.codechallenge.application.UsersFinder;
+import com.codechallenge.application.ports.driven.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

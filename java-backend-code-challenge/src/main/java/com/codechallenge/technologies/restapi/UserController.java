@@ -1,6 +1,6 @@
-package com.codechallenge.application.restapi;
+package com.codechallenge.technologies.restapi;
 
-import com.codechallenge.hexagon.User;
+import com.codechallenge.application.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

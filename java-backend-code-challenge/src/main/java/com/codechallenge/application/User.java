@@ -1,4 +1,4 @@
-package com.codechallenge.hexagon;
+package com.codechallenge.application;
 
 public record User(String username,
                    String name,

@@ -1,6 +1,6 @@
-package com.codechallenge.hexagon;
+package com.codechallenge.application;
 
-import com.codechallenge.hexagon.ports.driven.UserRepository;
+import com.codechallenge.application.ports.driven.UserRepository;
 
 import java.util.List;
 

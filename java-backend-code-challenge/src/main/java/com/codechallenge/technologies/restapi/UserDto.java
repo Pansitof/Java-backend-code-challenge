@@ -1,4 +1,4 @@
-package com.codechallenge.application.restapi;
+package com.codechallenge.technologies.restapi;
 
 public record UserDto(String username,
                       String name,
