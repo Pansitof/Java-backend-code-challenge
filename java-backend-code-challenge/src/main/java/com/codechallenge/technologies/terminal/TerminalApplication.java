@@ -50,6 +50,7 @@ public class TerminalApplication {
         String username = scanner.nextLine();
         User user = userFinder.execute(username);
 
+        if (user != null){
         stringBuilder = new StringBuilder();
         stringBuilder.append("\t name = '"+user.name()+"'\n");
         stringBuilder.append("\t username = '"+user.username()+"'\n");
@@ -57,6 +58,9 @@ public class TerminalApplication {
         stringBuilder.append("\t gender = '"+user.gender()+"'\n");
         stringBuilder.append("\t picture = '"+user.picture()+"'\n");
         System.out.println(stringBuilder.toString());
+        return;
+        }
+        System.out.println("Usuario NO encotnrado");
     }
 
     void showMenu() {

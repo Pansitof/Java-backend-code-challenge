@@ -20,7 +20,7 @@ public class FileSystemUserRepository implements UserRepository {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonNode = objectMapper.readTree(jsonFile);
-            for (JsonNode node : jsonNode){
+            for (JsonNode node : jsonNode) {
                 users.add(new User(
                         node.get("username").asText(),
                         node.get("name").asText(),
@@ -36,8 +36,25 @@ public class FileSystemUserRepository implements UserRepository {
 
     @Override
     public User getById(String username) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        User user = null;
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonFile);
+            for (JsonNode node : jsonNode) {
+                if (username.equals(node.get("username").asText())) {
+                    user = new User(
+                            node.get("username").asText(),
+                            node.get("name").asText(),
+                            node.get("email").asText(),
+                            node.get("gender").asText(),
+                            node.get("picture").asText());
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        return new User("username", "name", "email", "gender", "picture");
+        return user;
     }
 
     /*
