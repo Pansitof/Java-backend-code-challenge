@@ -11,8 +11,9 @@ import java.util.Scanner;
 
 public class TerminalApplication {
 
-    private static StringBuilder stringBuilder;
     private static Scanner scanner;
+
+    TerminalVisualizer visualizer = new TerminalVisualizer();
 
     UserRepository userRepository = new FileSystemUserRepository();
 
@@ -28,14 +29,15 @@ public class TerminalApplication {
         int seleccion = 1;
         scanner = new Scanner(System.in);
         do {
-            showMenu();
+            visualizer.showMenu();
             seleccion = scanner.nextInt();
             switch (seleccion) {
                 case 1:
-                    showUsers();
+                    visualizer.showUsers(usersFinder.execute());
                     break;
                 case 2:
-                    showUserByUsername();
+                    System.out.println("Introduzca el nombre de usuario");
+                    visualizer.showUserByUsername(userFinder.execute(scanner.nextLine()));
                     break;
                 default:
                     System.out.println("Seleccione una opción válida:");
@@ -44,46 +46,9 @@ public class TerminalApplication {
         } while (seleccion != 0);
     }
 
-    private void showUserByUsername() {
-        scanner = new Scanner(System.in);
-        System.out.println("Introduzca el nombre de usuario");
-        User user = userFinder.execute(scanner.nextLine());
 
-        if (user != null) {
-            System.out.println(converterUserToString(user));
-            return;
-        }
 
-        System.out.println("Usuario NO encotnrado");
-    }
 
-    void showMenu() {
-        stringBuilder = new StringBuilder();
-        stringBuilder.append("Menu Principal \n");
-        stringBuilder.append("\t1. Mostrar usuarios. \n");
-        stringBuilder.append("\t2. Mostrar un usuario. \n");
-        stringBuilder.append("\t0. Cerrar Terminal. \n");
-        stringBuilder.append("Por favor. Seleccione Opción: \n");
-        System.out.println(stringBuilder.toString());
-    }
 
-    void showUsers() {
-        List<User> users = usersFinder.execute();
-        stringBuilder = new StringBuilder();
-        for (User user : users) {
-            stringBuilder.append(converterUserToString(user));
-            stringBuilder.append("---\n");
-        }
-        System.out.println(stringBuilder.toString());
-    }
 
-    String converterUserToString(User user){
-        StringBuilder temporalstringBuilder = new StringBuilder();
-        temporalstringBuilder.append("\t name = '" + user.name() + "'\n");
-        temporalstringBuilder.append("\t username = '" + user.username() + "'\n");
-        temporalstringBuilder.append("\t email = '" + user.email() + "'\n");
-        temporalstringBuilder.append("\t gender = '" + user.gender() + "'\n");
-        temporalstringBuilder.append("\t picture = '" + user.picture() + "'\n");
-        return temporalstringBuilder.toString();
-    };
 }

@@ -25,6 +25,6 @@ public class MySqlUserRepository implements UserRepository {
 
     @Override
     public User getById(String username) {
-        return null;
+        return new User("username", "name", "email", "gender", "picture");
     }
 }
