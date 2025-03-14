@@ -49,6 +49,26 @@ public class UsersFinderTest {
         assertEquals(4, users.size());
     }
 
+    @Test
+    public void doesUsersMatch() {
+        //Arrange
+
+        UsersFinder usersFinder = new UsersFinder(userRepositoryStub);
+        List<User> userInStub = List.of(
+                new User("username", "name", "email", "gender", "picture"),
+                new User("UserB", "UserB", "UserB", "UserB", "UserB"),
+                new User("UserC", "UserC", "UserC", "UserC", "UserC"),
+                new User("UserD", "UserD", "UserD", "UserD", "UserD"));
+        Mockito.when(userRepositoryStub.getAll()).thenReturn(userInStub);
+        //Act
+        var users = usersFinder.execute();
+        //assert
+        assertEquals(userInStub.get(0), users.get(0));
+        assertEquals(userInStub.get(1), users.get(1));
+        assertEquals(userInStub.get(2), users.get(2));
+        assertEquals(userInStub.get(3), users.get(3));
+    }
+
 
 }
 
