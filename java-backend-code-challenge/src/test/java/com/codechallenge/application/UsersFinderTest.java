@@ -1,22 +1,28 @@
 package com.codechallenge.application;
 
-import com.codechallenge.application.ports.driven.UserRepositoryMockNoUsers;
-import com.codechallenge.application.ports.driven.UserRepositoryMockWithUsers;
+import com.codechallenge.application.ports.driven.UserRepositoryStub;
 import com.codechallenge.application.ports.driven.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 public class UsersFinderTest {
 
-    private UserRepository userRepositoryNoUsers = new UserRepositoryMockNoUsers();
-    private UserRepository userRepositoryWithUsers = new UserRepositoryMockWithUsers();
-
+    @Mock
+    private UserRepository userRepositoryStub;
 
     @Test
-    public void doesNotContainUsers_returnEmptyUserList() {
+    public void doesNotContainUsers() {
         //Arrange
-        UsersFinder usersFinder = new UsersFinder(userRepositoryNoUsers);
+        Mockito.when(userRepositoryStub.getAll()).thenReturn(List.of());
+        UsersFinder usersFinder = new UsersFinder(userRepositoryStub);
 
         //Act
         var users = usersFinder.execute();
@@ -26,9 +32,14 @@ public class UsersFinderTest {
     }
 
     @Test
-    public void doesContainUsers_returnUserList() {
+    public void doesContainUsers() {
         //Arrange
-        UsersFinder usersFinder = new UsersFinder(userRepositoryWithUsers);
+        Mockito.when(userRepositoryStub.getAll()).thenReturn(List.of(
+                new User("username", "name", "email", "gender", "picture"),
+                new User("UserB", "UserB", "UserB", "UserB", "UserB"),
+                new User("UserC", "UserC", "UserC", "UserC", "UserC"),
+                new User("UserD", "UserD", "UserD", "UserD", "UserD")));
+        UsersFinder usersFinder = new UsersFinder(userRepositoryStub);
 
         //Act
         var users = usersFinder.execute();

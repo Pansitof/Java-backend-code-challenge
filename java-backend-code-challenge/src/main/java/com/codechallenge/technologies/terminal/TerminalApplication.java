@@ -41,10 +41,4 @@ public class TerminalApplication {
             }
         } while (seleccion != 0);
     }
-
-
-
-
-
-
 }

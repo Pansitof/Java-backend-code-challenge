@@ -4,7 +4,7 @@ import com.codechallenge.application.ports.driven.UserRepository;
 
 import java.util.List;
 
-public class UsersFinder {
+class UsersFinder {
     private UserRepository repository;
 
     public UsersFinder(UserRepository repository){
