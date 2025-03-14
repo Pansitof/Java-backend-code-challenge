@@ -22,6 +22,7 @@ public class UsersFinderTest {
     public void doesNotContainUsers() {
         //Arrange
         Mockito.when(userRepositoryStub.getAll()).thenReturn(List.of());
+
         UsersFinder usersFinder = new UsersFinder(userRepositoryStub);
 
         //Act

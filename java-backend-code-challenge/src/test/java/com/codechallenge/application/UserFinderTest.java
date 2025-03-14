@@ -3,28 +3,29 @@ package com.codechallenge.application;
 import com.codechallenge.application.ports.driven.UserRepositoryStub;
 import com.codechallenge.application.ports.driven.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 public class UserFinderTest {
 
-    private UserRepository userRepositoryNoUsers = new UserRepositoryStub(List.of());
-    private UserRepository userRepositoryWithUsers = new UserRepositoryStub(List.of(
-            new User("username", "name", "email", "gender", "picture"),
-            new User("UserB", "UserB", "UserB", "UserB", "UserB"),
-            new User("UserC", "UserC", "UserC", "UserC", "UserC"),
-            new User("UserD", "UserD", "UserD", "UserD", "UserD")
-    ));
+    @Mock
+    private UserRepository userRepositoryStub;
 
     @Test
     public void doesNotFoundUser_returnNull() {
         //Arrange
-        UserFinder userFinder = new UserFinder(userRepositoryNoUsers);
+        Mockito.when(userRepositoryStub.getById("leUser")).thenReturn(null);
+        UserFinder userFinder = new UserFinder(userRepositoryStub);
 
         //Act
-        var user = userFinder.execute("NO USER WITH THIS USERNAME");
+        var user = userFinder.execute("leUser");
 
         //assert
         assertEquals(null, user);
@@ -34,7 +35,8 @@ public class UserFinderTest {
     @Test
     public void doesFoundUser_returnUser() {
         //Arrange
-        UserFinder userFinder = new UserFinder(userRepositoryWithUsers);
+        UserFinder userFinder = new UserFinder(userRepositoryStub);
+        Mockito.when(userRepositoryStub.getById("UserB")).thenReturn(new User("UserB", "UserB", "UserB", "UserB", "UserB"));
 
         //Act
         var user = userFinder.execute("UserB");
