@@ -27,6 +27,12 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public User getById(String username) {
-        return new User("username", "name", "email", "gender", "picture");
+        List<UserEntity> userEntities = jpaUserRepository.findAll();
+        for (UserEntity user : userEntities){
+            if(user.username().equals(username)){
+                return new User(user.username(),user.name(),user.email(),user.gender(),user.picture());
+            }
+        }
+        return null;
     }
 }
