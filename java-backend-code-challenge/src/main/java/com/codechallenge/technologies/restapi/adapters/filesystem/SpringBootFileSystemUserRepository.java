@@ -4,7 +4,7 @@ import com.codechallenge.share.adapters.userrepository.FileSystemUserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-@Primary
+//@Primary
 @Repository
 public class SpringBootFileSystemUserRepository extends FileSystemUserRepository {
 

@@ -19,7 +19,7 @@ public class UserFinderTest {
     private UserRepository userRepositoryStub;
 
     @Test
-    public void doesNotFoundUser_returnNull() {
+    public void doesNotFoundUser() {
         //Arrange
         Mockito.when(userRepositoryStub.getById("leUser")).thenReturn(null);
         UserFinder userFinder = new UserFinder(userRepositoryStub);
@@ -33,16 +33,34 @@ public class UserFinderTest {
 
 
     @Test
-    public void doesFoundUser_returnUser() {
+    public void doesFoundUser() {
         //Arrange
         UserFinder userFinder = new UserFinder(userRepositoryStub);
-        Mockito.when(userRepositoryStub.getById("UserB")).thenReturn(new User("UserB", "UserB", "UserB", "UserB", "UserB"));
+        User userInStub = new User("TestUsername", "TestName", "TestEmail", "TestGender", "TestPicture");
+        Mockito.when(userRepositoryStub.getById("TestUsername")).thenReturn(userInStub);
 
         //Act
-        var user = userFinder.execute("UserB");
+        User user = userFinder.execute("TestUsername");
 
         //assert
-        assertEquals("UserB", user.username());
+        assertEquals(userInStub,user);
+    }
+
+    @Test
+    public void doesValuesMatch() {
+        //Arrange
+        UserFinder userFinder = new UserFinder(userRepositoryStub);
+        User userInStub = new User("TestUsername", "TestName", "TestEmail", "TestGender", "TestPicture");
+        Mockito.when(userRepositoryStub.getById("TestUsername")).thenReturn(userInStub);
+        //Act
+        var user = userFinder.execute("TestUsername");
+
+        //assert
+        assertEquals("TestUsername", user.username(), "username value");
+        assertEquals("TestName", user.name(), "name value");
+        assertEquals("TestEmail", user.email(), "email value");
+        assertEquals("TestGender", user.gender(), "gender value");
+        assertEquals("TestPicture", user.picture(), "picture value");
     }
 
 }
