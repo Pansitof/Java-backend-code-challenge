@@ -14,23 +14,19 @@ import java.util.List;
 public class UserService {
 
 
-    private final UserRepository repository;
     private final UserManager userManager;
 
     public UserService(UserRepository repository) {
         this.userManager = new UserManager(repository);
-        this.repository = repository;
     }
 
 
     public List<User> getUsers() {
-        UsersFinder usersFinder = new UsersFinder(repository);
-        return usersFinder.execute();
+        return userManager.getUsers();
     }
 
     public User getUser(String username) {
-        UserFinder userFinder = new UserFinder(repository);
-        return userFinder.execute(username);
+        return userManager.getUserById(username);
     }
 
 }
