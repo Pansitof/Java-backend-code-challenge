@@ -11,14 +11,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserNotFoundException extends RuntimeException  {
+class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {
         super(message);
     }
 }
 
-class UnableToCreateUserException extends RuntimeException  {
-    public UnableToCreateUserException(String message) {
+class EmailInvalidFormatException extends RuntimeException {
+    public EmailInvalidFormatException(String message) {
         super(message);
     }
 }
@@ -27,31 +27,41 @@ class UnableToCreateUserException extends RuntimeException  {
 public class UserManagerShould {
 
     @Mock
-    private UserRepository userRepositoryStub;
-    private UserFinder userFinder = new UserFinder(userRepositoryStub);
-    private UsersFinder usersFinder = new UsersFinder(userRepositoryStub);
-    private UserCreator userCreator = new UserCreator(userRepositoryStub);
+    private UserRepository userRepository;
+    private UserFinder userFinder = new UserFinder(userRepository);
+    private UsersFinder usersFinder = new UsersFinder(userRepository);
+    private UserCreator userCreator = new UserCreator(userRepository);
 
     //UserCreator
     @Test
-    public void notCreateUser(){
-        userCreator = new UserCreator(userRepositoryStub);
-        User testUser = new User("","","","","");
-        Mockito.when(userRepositoryStub.createUser(testUser)).thenThrow(new UnableToCreateUserException("There was an error trying to create the User"));
+    public void failByEmailIncorrectWhenUserIsBeingCreated() {
+        userCreator = new UserCreator(userRepository);
 
-        Exception exception = assertThrows(UnableToCreateUserException.class, () -> {
-            userCreator.execute(testUser);
+        Exception exception = assertThrows(EmailInvalidFormatException.class, () -> {
+            userCreator.execute("TestUsername","name", "INCORRECTEMAILFORMAT", "gender");
         });
-        assertEquals("There was an error trying to create the User", exception.getMessage());
 
+        assertEquals("Email has Incorrect Format", exception.getMessage());
+    }
+
+    @Test
+    public void createAnUserWithSpecifiedData() {
+        //Arrange
+        userCreator = new UserCreator(userRepository);
+
+        //Act
+        userCreator.execute("TestUsername","name", "email@email.es", "gender");
+
+        //assert
+        Mockito.verify(userRepository).createUser(Mockito.any(User.class));
     }
 
     //UserFinder
     @Test
     public void notFindUserById() {
         //Arrange
-        userFinder = new UserFinder(userRepositoryStub);
-        Mockito.when(userRepositoryStub.getById("leUser")).thenThrow(new UserNotFoundException("There isn't an user with that ID"));
+        userFinder = new UserFinder(userRepository);
+        Mockito.when(userRepository.getById("leUser")).thenThrow(new UserNotFoundException("There isn't an user with that ID"));
 
         //Act
 
@@ -67,13 +77,13 @@ public class UserManagerShould {
     @Test
     public void findUserByIdWithExpectedData() {
         //Arrange
-        userFinder = new UserFinder(userRepositoryStub);
+        userFinder = new UserFinder(userRepository);
         String testName = "TestName";
         String testEmail = "TestEmail";
         String testGender = "TestGender";
         String testPicture = "TestPicture";
         String testUsername = "TestUsername";
-        Mockito.when(userRepositoryStub.getById(testUsername)).thenReturn(createUser(testUsername, testName, testEmail, testGender, testPicture));
+        Mockito.when(userRepository.getById(testUsername)).thenReturn(createUser(testUsername, testName, testEmail, testGender, testPicture));
 
         //Act
         User resultedUser = userFinder.execute(testUsername);
@@ -91,8 +101,8 @@ public class UserManagerShould {
     @Test
     public void notFindUsers() {
         //Arrange
-        usersFinder = new UsersFinder(userRepositoryStub);
-        Mockito.when(userRepositoryStub.getAll()).thenReturn(List.of());
+        usersFinder = new UsersFinder(userRepository);
+        Mockito.when(userRepository.getAll()).thenReturn(List.of());
 
         //Act
         var users = usersFinder.execute();
@@ -104,8 +114,8 @@ public class UserManagerShould {
     @Test
     public void findOneUserWithExpectedData() {
         //Arrange
-        usersFinder = new UsersFinder(userRepositoryStub);
-        Mockito.when(userRepositoryStub.getAll()).thenReturn(List.of(
+        usersFinder = new UsersFinder(userRepository);
+        Mockito.when(userRepository.getAll()).thenReturn(List.of(
                 createUser("username", "name", "email", "gender", "picture")));
 
         //Act
@@ -118,8 +128,8 @@ public class UserManagerShould {
     @Test
     public void findsMultipleUsers() {
         //Arrange
-        usersFinder = new UsersFinder(userRepositoryStub);
-        Mockito.when(userRepositoryStub.getAll()).thenReturn(List.of(
+        usersFinder = new UsersFinder(userRepository);
+        Mockito.when(userRepository.getAll()).thenReturn(List.of(
                 createUser("username", "name", "email", "gender", "picture"),
                 createUser("UserB", "UserB", "UserB", "UserB", "UserB"),
                 createUser("UserC", "UserC", "UserC", "UserC", "UserC"),

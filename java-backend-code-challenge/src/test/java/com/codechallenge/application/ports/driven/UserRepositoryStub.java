@@ -28,7 +28,7 @@ public class UserRepositoryStub implements UserRepository {
     }
 
     @Override
-    public boolean createUser(User user) {
-        return false;
+    public User createUser(User user) {
+        return new User("","","","","");
     }
 }

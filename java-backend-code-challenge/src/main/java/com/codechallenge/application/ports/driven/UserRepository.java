@@ -9,5 +9,5 @@ public interface UserRepository {
 
     User getById(String username);
 
-    boolean createUser(User user);
+    User createUser(User user);
 }

@@ -48,8 +48,8 @@ public class FileSystemUserRepository implements UserRepository {
     }
 
     @Override
-    public boolean createUser(User user) {
-        return false;
+    public User createUser(User user) {
+        return new User("","","","","");
     }
 
     private User convertJsonNodeToUser(JsonNode node){
