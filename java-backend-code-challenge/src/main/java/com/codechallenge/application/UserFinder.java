@@ -13,7 +13,11 @@ class UserFinder {
     }
 
     public User execute(String username) {
-        return repository.getById(username);
+        User resultedUser = repository.getById(username);
+        if (Objects.isNull(resultedUser)){
+            throw new UserNotFoundException("There isn't an user with that ID");
+        }
+        return resultedUser;
     }
 
 }

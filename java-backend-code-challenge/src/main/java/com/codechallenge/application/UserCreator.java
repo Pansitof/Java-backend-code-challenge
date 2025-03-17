@@ -2,14 +2,7 @@ package com.codechallenge.application;
 
 import com.codechallenge.application.ports.driven.UserRepository;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-class EmailInvalidFormatException extends RuntimeException {
-    public EmailInvalidFormatException(String message) {
-        super(message);
-    }
-}
 
 class UserCreator {
     private UserRepository repository;

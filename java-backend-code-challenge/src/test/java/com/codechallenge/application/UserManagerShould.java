@@ -11,17 +11,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException(String message) {
-        super(message);
-    }
-}
-
-class EmailInvalidFormatException extends RuntimeException {
-    public EmailInvalidFormatException(String message) {
-        super(message);
-    }
-}
 
 @ExtendWith(MockitoExtension.class)
 public class UserManagerShould {
@@ -60,14 +49,13 @@ public class UserManagerShould {
     @Test
     public void notFindUserById() {
         //Arrange
+        String leUser = "leUser";
         userFinder = new UserFinder(userRepository);
-        Mockito.when(userRepository.getById("leUser")).thenThrow(new UserNotFoundException("There isn't an user with that ID"));
+        Mockito.when(userRepository.getById(leUser)).thenReturn(null);
 
-        //Act
-
-        //assert
+        //Act & assert
         Exception exception = assertThrows(UserNotFoundException.class, () -> {
-            userFinder.execute("leUser");
+            userFinder.execute(leUser);
         });
 
         assertEquals("There isn't an user with that ID", exception.getMessage());
