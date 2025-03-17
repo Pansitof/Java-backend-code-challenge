@@ -1,5 +1,8 @@
-package com.codechallenge.application;
+package com.codechallenge.application.usecase;
 
+import com.codechallenge.application.EmailInvalidFormatException;
+import com.codechallenge.application.User;
+import com.codechallenge.application.UsernameAlreadyExistException;
 import com.codechallenge.application.ports.driven.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,4 +1,6 @@
-package com.codechallenge.application;
+package com.codechallenge.application.usecase;
+
+import com.codechallenge.application.User;
 
 public class UserMother {
     static User createUser(String testUsername, String testName, String testEmail, String testGender, String testPicture) {

@@ -1,6 +1,6 @@
 package com.codechallenge.technologies.terminal;
 
-import com.codechallenge.application.UserManager;
+import com.codechallenge.application.usecase.UserManager;
 import com.codechallenge.share.adapters.userrepository.FileSystemUserRepository;
 import com.codechallenge.application.ports.driven.UserRepository;
 
