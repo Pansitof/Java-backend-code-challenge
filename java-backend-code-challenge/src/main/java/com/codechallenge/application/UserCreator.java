@@ -17,8 +17,9 @@ class UserCreator {
         if(!pattern.matcher(email).find()) {
             throw new EmailInvalidFormatException("Email has Incorrect Format");
         }
+
         User existingUser = repository.getById(testUsername);
-        if (!Objects.isNull(existingUser)){
+        if (Objects.nonNull(existingUser)){
             throw new UsernameAlreadyExistException();
         }
         repository.createUser(new User(testUsername, name, email, gender, "picture"));
