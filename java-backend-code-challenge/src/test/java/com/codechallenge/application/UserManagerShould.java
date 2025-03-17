@@ -34,6 +34,20 @@ public class UserManagerShould {
     }
 
     @Test
+    public void failByUsernameAlreadyExist() {
+        userCreator = new UserCreator(userRepository);
+        String testUsername = "TestUsername";
+
+        Mockito.when(userRepository.getById(testUsername)).thenReturn(createUser(testUsername,"name","Wewew@wewW.es","gender","picture"));
+
+        Exception exception = assertThrows(UsernameAlreadyExistException.class, () -> {
+            userCreator.execute(testUsername,"name", "email@email.es", "gender");
+        });
+
+        assertEquals("Username already exist", exception.getMessage());
+    }
+
+    @Test
     public void createAnUserWithSpecifiedData() {
         //Arrange
         userCreator = new UserCreator(userRepository);
