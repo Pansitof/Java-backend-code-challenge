@@ -1,4 +1,4 @@
-package com.codechallenge.application;
+package com.codechallenge.application.usecase.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

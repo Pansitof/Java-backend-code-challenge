@@ -1,6 +1,6 @@
 package com.codechallenge.technologies.restapi.adapters.mysql;
 
-import com.codechallenge.application.User;
+import com.codechallenge.application.domain.User;
 import com.codechallenge.application.ports.driven.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;

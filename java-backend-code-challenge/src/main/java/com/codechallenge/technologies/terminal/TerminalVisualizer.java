@@ -1,9 +1,8 @@
 package com.codechallenge.technologies.terminal;
 
-import com.codechallenge.application.User;
+import com.codechallenge.application.domain.User;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class TerminalVisualizer {
 

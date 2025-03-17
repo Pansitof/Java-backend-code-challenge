@@ -1,6 +1,6 @@
 package com.codechallenge.application.ports.driven;
 
-import com.codechallenge.application.User;
+import com.codechallenge.application.domain.User;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.codechallenge.share.adapters.userrepository;
 
-import com.codechallenge.application.User;
+import com.codechallenge.application.domain.User;
 import com.codechallenge.application.ports.driven.UserRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

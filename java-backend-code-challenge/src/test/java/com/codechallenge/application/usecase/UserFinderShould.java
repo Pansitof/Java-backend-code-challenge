@@ -1,7 +1,7 @@
 package com.codechallenge.application.usecase;
 
-import com.codechallenge.application.User;
-import com.codechallenge.application.UserNotFoundException;
+import com.codechallenge.application.domain.User;
+import com.codechallenge.application.usecase.exception.UserNotFoundException;
 import com.codechallenge.application.ports.driven.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

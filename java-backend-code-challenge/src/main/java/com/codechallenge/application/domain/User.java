@@ -1,4 +1,4 @@
-package com.codechallenge.application;
+package com.codechallenge.application.domain;
 
 public record User(String username,
                    String name,
