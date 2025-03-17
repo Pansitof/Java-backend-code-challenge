@@ -17,6 +17,12 @@ class UserNotFoundException extends RuntimeException  {
     }
 }
 
+class UnableToCreateUserException extends RuntimeException  {
+    public UnableToCreateUserException(String message) {
+        super(message);
+    }
+}
+
 @ExtendWith(MockitoExtension.class)
 public class UserManagerShould {
 
@@ -24,7 +30,23 @@ public class UserManagerShould {
     private UserRepository userRepositoryStub;
     private UserFinder userFinder = new UserFinder(userRepositoryStub);
     private UsersFinder usersFinder = new UsersFinder(userRepositoryStub);
+    private UserCreator userCreator = new UserCreator(userRepositoryStub);
 
+    //UserCreator
+    @Test
+    public void notCreateUser(){
+        userCreator = new UserCreator(userRepositoryStub);
+        User testUser = new User("","","","","");
+        Mockito.when(userRepositoryStub.createUser(testUser)).thenThrow(new UnableToCreateUserException("There was an error trying to create the User"));
+
+        Exception exception = assertThrows(UnableToCreateUserException.class, () -> {
+            userCreator.execute(testUser);
+        });
+        assertEquals("There was an error trying to create the User", exception.getMessage());
+
+    }
+
+    //UserFinder
     @Test
     public void notFindUserById() {
         //Arrange
@@ -65,7 +87,7 @@ public class UserManagerShould {
         assertEquals(testUsername, resultedUser.username(), "username value");
     }
 
-
+    //UsersFinder
     @Test
     public void notFindUsers() {
         //Arrange

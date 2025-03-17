@@ -8,4 +8,6 @@ public interface UserRepository {
     List<User> getAll();
 
     User getById(String username);
+
+    boolean createUser(User user);
 }

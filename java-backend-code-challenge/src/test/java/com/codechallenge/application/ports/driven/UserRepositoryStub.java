@@ -26,4 +26,9 @@ public class UserRepositoryStub implements UserRepository {
         }
         return null;
     }
+
+    @Override
+    public boolean createUser(User user) {
+        return false;
+    }
 }
