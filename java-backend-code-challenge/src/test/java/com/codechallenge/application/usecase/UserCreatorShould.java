@@ -1,9 +1,11 @@
 package com.codechallenge.application.usecase;
 
+import com.codechallenge.application.domain.NumberGenerator;
 import com.codechallenge.application.usecase.exception.EmailInvalidFormatException;
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.usecase.exception.UsernameAlreadyExistException;
 import com.codechallenge.application.ports.driven.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,12 +20,15 @@ public class UserCreatorShould {
 
     @Mock
     private UserRepository userRepository;
-    private UserCreator userCreator = new UserCreator(userRepository);
+    private UserCreator userCreator;
 
-    //UserCreator
+    @BeforeEach
+    void setup(){
+        userCreator = new UserCreator(userRepository, new NumberGenerator());
+    }
+
     @Test
     public void failByEmailIncorrectWhenUserIsBeingCreated() {
-        userCreator = new UserCreator(userRepository);
 
         Exception exception = assertThrows(EmailInvalidFormatException.class, () -> {
             userCreator.execute("TestUsername","name", "INCORRECTEMAILFORMAT", "gender");
@@ -34,7 +39,6 @@ public class UserCreatorShould {
 
     @Test
     public void failByUsernameAlreadyExist() {
-        userCreator = new UserCreator(userRepository);
         String testUsername = "TestUsername";
 
         Mockito.when(userRepository.getById(testUsername)).thenReturn(UserMother.createUser(testUsername,"name","Wewew@wewW.es","gender","picture"));
@@ -50,7 +54,6 @@ public class UserCreatorShould {
     @Test
     public void createAnUserWithSpecifiedData() {
         //Arrange
-        userCreator = new UserCreator(userRepository);
 
         //Act
         userCreator.execute("TestUsername","name", "email@email.es", "gender");
@@ -58,5 +61,6 @@ public class UserCreatorShould {
         //assert
         Mockito.verify(userRepository).createUser(Mockito.any(User.class));
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.codechallenge.application.usecase;
 
+import com.codechallenge.application.domain.NumberGenerator;
 import com.codechallenge.application.usecase.exception.EmailInvalidFormatException;
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.usecase.exception.UsernameAlreadyExistException;
@@ -11,7 +12,7 @@ import java.util.regex.Pattern;
 class UserCreator {
     private UserRepository repository;
 
-    public UserCreator(UserRepository repository) {
+    public UserCreator(UserRepository repository, NumberGenerator numberGenerator) {
         this.repository = repository;
     }
 
