@@ -9,8 +9,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserNotFoundException extends RuntimeException  {
+    public UserNotFoundException(String message) {
+        super(message);
+    }
+}
 
 @ExtendWith(MockitoExtension.class)
 public class UserManagerShould {
@@ -24,13 +29,17 @@ public class UserManagerShould {
     public void notFindUserById() {
         //Arrange
         userFinder = new UserFinder(userRepositoryStub);
-        Mockito.when(userRepositoryStub.getById("leUser")).thenReturn(null);
+        Mockito.when(userRepositoryStub.getById("leUser")).thenThrow(new UserNotFoundException("There isn't an user with that ID"));
 
         //Act
-        var user = userFinder.execute("leUser");
 
         //assert
-        assertEquals(null, user);
+        Exception exception = assertThrows(UserNotFoundException.class, () -> {
+            userFinder.execute("leUser");
+        });
+
+        assertEquals("There isn't an user with that ID", exception.getMessage());
+
     }
 
     @Test
