@@ -1,6 +1,7 @@
 package com.codechallenge.application.usecase;
 
 import com.codechallenge.application.domain.NumberGenerator;
+import com.codechallenge.application.usecase.exception.EmailAlreadyInUseException;
 import com.codechallenge.application.usecase.exception.EmailInvalidFormatException;
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.usecase.exception.UsernameAlreadyExistException;
@@ -30,6 +31,12 @@ class UserCreator {
         }
 
         String picture = testUsername+"_"+numberGenerator.generateFourRandomsDigits();
+        UsersFinder usersFinder = new UsersFinder(repository);
+        for (User user : usersFinder.execute()){
+            if (user.email().equals(email)){
+                throw  new EmailAlreadyInUseException();
+            }
+        }
         repository.createUser(new User(testUsername, name, email, gender, picture));
     }
 
