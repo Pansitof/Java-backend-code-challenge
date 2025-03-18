@@ -52,6 +52,11 @@ public class FileSystemUserRepository implements UserRepository {
         return new User("","","","","");
     }
 
+    @Override
+    public User getByEmail(String email) {
+        return null;
+    }
+
     private User convertJsonNodeToUser(JsonNode node){
         User user = new User(
                 node.get("username").asText(),

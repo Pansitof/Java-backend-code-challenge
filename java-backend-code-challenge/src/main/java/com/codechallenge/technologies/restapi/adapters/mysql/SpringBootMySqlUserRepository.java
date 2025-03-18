@@ -40,4 +40,9 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     public User createUser(User user) {
         return new User("","","","","");
     }
+
+    @Override
+    public User getByEmail(String email) {
+        return null;
+    }
 }

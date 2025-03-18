@@ -26,13 +26,17 @@ public class UserCreatorShould {
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private NumberGenerator numberGenerator;
+
     private UserCreator userCreator;
+
     @Captor
     ArgumentCaptor<User> userCaptor;
 
     @BeforeEach
     void setup() {
-        userCreator = new UserCreator(userRepository, new NumberGenerator());
+        userCreator = new UserCreator(userRepository, numberGenerator);
     }
 
     @Test
@@ -86,23 +90,21 @@ public class UserCreatorShould {
 
     @Test
     public void beCreatedWithAnAllowedPicture() {
-        userCreator.execute("Pedro", "name", "email@email.es", "gender");
-        Pattern pattern = Pattern.compile("^(\\w+)_(\\d{4})$");
+        int pictureCodeGenerated = 1111;
+        Mockito.when(numberGenerator.generateFourRandomsDigits()).thenReturn(pictureCodeGenerated);
+
+        String username = "Pedro";
+        userCreator.execute(username, "name", "email@email.es", "gender");
 
         Mockito.verify(userRepository).createUser(userCaptor.capture());
         User userCaptured = userCaptor.getValue();
-
-        assertFalse(userCaptured.picture().isBlank());
-        assertTrue(pattern.matcher(userCaptured.picture()).find());
+        String expectedPicture = username+"_"+pictureCodeGenerated;
+        assertEquals(expectedPicture, userCaptured.picture());
     }
 
     @Test
     public void failByEmailAlreadyUsed() {
-
-        Mockito.when(userRepository.getAll()).thenReturn(
-                List.of(
-                        UserMother.createUser("testUsername", "name", "Wewew@wewW.es", "gender", "picture")
-                ));
+        Mockito.when(userRepository.getByEmail("Wewew@wewW.es")).thenReturn(UserMother.createUser("testUsername", "testName", "Wewew@wewW.es", "testGender", "testPicture"));
 
         Exception exception = assertThrows(EmailAlreadyInUseException.class, () -> {
             userCreator.execute("TestUsername", "name", "Wewew@wewW.es", "gender");
@@ -112,3 +114,9 @@ public class UserCreatorShould {
     }
 
 }
+
+
+//Necesitaría el UsersFinder para asegurarse de que picture no se repita.
+//Un test que compruebe que en caso de que se repita, no se cree o se vuelve a generar un número aleatorio
+//Comprobar que el email no sea el mismo que uno ya existente --- DONE
+//
