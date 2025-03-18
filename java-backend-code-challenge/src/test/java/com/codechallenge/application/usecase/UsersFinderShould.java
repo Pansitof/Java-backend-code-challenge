@@ -1,6 +1,7 @@
 package com.codechallenge.application.usecase;
 
 import com.codechallenge.application.ports.driven.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,12 +19,14 @@ public class UsersFinderShould {
     @Mock
     private UserRepository userRepository;
     private UsersFinder usersFinder = new UsersFinder(userRepository);
-
+    @BeforeEach
+    void setup(){
+        usersFinder = new UsersFinder(userRepository);
+    }
 
     @Test
     public void notFindUsers() {
         //Arrange
-        usersFinder = new UsersFinder(userRepository);
         Mockito.when(userRepository.getAll()).thenReturn(List.of());
 
         //Act
@@ -36,7 +39,6 @@ public class UsersFinderShould {
     @Test
     public void findOneUserWithExpectedData() {
         //Arrange
-        usersFinder = new UsersFinder(userRepository);
         Mockito.when(userRepository.getAll()).thenReturn(List.of(
                 UserMother.createUser("username", "name", "email", "gender", "picture")));
 
@@ -50,7 +52,6 @@ public class UsersFinderShould {
     @Test
     public void findsMultipleUsers() {
         //Arrange
-        usersFinder = new UsersFinder(userRepository);
         Mockito.when(userRepository.getAll()).thenReturn(List.of(
                 UserMother.createUser("username", "name", "email", "gender", "picture"),
                 UserMother.createUser("UserB", "UserB", "UserB", "UserB", "UserB"),

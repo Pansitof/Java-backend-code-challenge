@@ -1,8 +1,10 @@
 package com.codechallenge.application.usecase;
 
+import com.codechallenge.application.domain.NumberGenerator;
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.usecase.exception.UserNotFoundException;
 import com.codechallenge.application.ports.driven.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -17,13 +19,17 @@ public class UserFinderShould {
 
     @Mock
     private UserRepository userRepository;
-    private UserFinder userFinder = new UserFinder(userRepository);
+    private UserFinder userFinder;
+
+    @BeforeEach
+    void setup(){
+        userFinder = new UserFinder(userRepository);
+    }
 
     @Test
     public void notFindUserById() {
         //Arrange
         String leUser = "leUser";
-        userFinder = new UserFinder(userRepository);
         Mockito.when(userRepository.getById(leUser)).thenReturn(null);
 
         //Act & assert
@@ -38,7 +44,6 @@ public class UserFinderShould {
     @Test
     public void findUserByIdWithExpectedData() {
         //Arrange
-        userFinder = new UserFinder(userRepository);
         String testName = "TestName";
         String testEmail = "TestEmail";
         String testGender = "TestGender";
