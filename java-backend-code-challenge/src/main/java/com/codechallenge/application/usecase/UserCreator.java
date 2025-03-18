@@ -20,8 +20,8 @@ class UserCreator {
     }
 
     public void execute(String testUsername, String name, String email, String gender) {
-        Pattern pattern = Pattern.compile("^(.+)@(.+)\\.(.+)$");
-        if(!pattern.matcher(email).find()) {
+        Pattern allowedEmailPattern = Pattern.compile("^(.+)@(.+)\\.(.+)$");
+        if(!allowedEmailPattern.matcher(email).find()) {
             throw new EmailInvalidFormatException("Email has Incorrect Format");
         }
 
