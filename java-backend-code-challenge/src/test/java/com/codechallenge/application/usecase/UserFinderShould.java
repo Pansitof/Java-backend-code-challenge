@@ -1,6 +1,5 @@
 package com.codechallenge.application.usecase;
 
-import com.codechallenge.application.domain.NumberGenerator;
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.usecase.exception.UserNotFoundException;
 import com.codechallenge.application.ports.driven.UserRepository;

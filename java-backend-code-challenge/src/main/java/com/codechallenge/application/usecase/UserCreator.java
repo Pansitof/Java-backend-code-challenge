@@ -11,9 +11,11 @@ import java.util.regex.Pattern;
 
 class UserCreator {
     private UserRepository repository;
+    private NumberGenerator numberGenerator;
 
     public UserCreator(UserRepository repository, NumberGenerator numberGenerator) {
         this.repository = repository;
+        this.numberGenerator = numberGenerator;
     }
 
     public void execute(String testUsername, String name, String email, String gender) {
@@ -26,6 +28,7 @@ class UserCreator {
         if (Objects.nonNull(existingUser)){
             throw new UsernameAlreadyExistException();
         }
-        repository.createUser(new User(testUsername, name, email, gender, "picture"));
+        String picture = testUsername+"_"+String.valueOf(numberGenerator.generateFourRandomsDigits());
+        repository.createUser(new User(testUsername, name, email, gender, picture));
     }
 }

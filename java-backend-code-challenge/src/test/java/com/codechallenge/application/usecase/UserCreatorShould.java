@@ -8,9 +8,13 @@ import com.codechallenge.application.ports.driven.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,5 +66,20 @@ public class UserCreatorShould {
         Mockito.verify(userRepository).createUser(Mockito.any(User.class));
     }
 
+
+    @Captor
+    ArgumentCaptor<User> userCaptor;
+
+    @Test
+    public void beCreatedWithAnAllowedPicture(){
+        userCreator.execute("Pedro","name", "email@email.es", "gender");
+        Pattern pattern = Pattern.compile("^\\d{4}$");
+
+        Mockito.verify(userRepository).createUser(userCaptor.capture());
+        User userCaptured = userCaptor.getValue();
+
+        assertFalse(userCaptured.picture().isBlank());
+        //assertTrue(pattern.matcher(userCaptured.picture()).find());
+    }
 
 }
