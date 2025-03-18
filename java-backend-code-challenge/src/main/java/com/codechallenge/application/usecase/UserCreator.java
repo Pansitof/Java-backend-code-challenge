@@ -25,25 +25,14 @@ class UserCreator {
             throw new EmailInvalidFormatException("Email has Incorrect Format");
         }
 
-        User existingUser = repository.getById(testUsername);
-        if (Objects.nonNull(existingUser)){
+        if (Objects.nonNull(repository.getById(testUsername))){
             throw new UsernameAlreadyExistException();
         }
-        User existingEmail = repository.getByEmail(email);
-        if (Objects.nonNull(existingEmail)){
+        if (Objects.nonNull(repository.getByEmail(email))){
             throw new EmailAlreadyInUseException();
         }
 
-        String picture ="";
-        Boolean alreadyExist = false;
-        do {
-            picture = testUsername + "_"+ numberGenerator.generateFourRandomsDigits();
-            for (User user : repository.getAll()) {
-                if (user.picture().equals(picture)){
-                    alreadyExist = true;
-                }
-            }
-        }while (alreadyExist);
+        String picture = testUsername + "_"+ numberGenerator.generateFourRandomsDigits();
 
         repository.createUser(new User(testUsername, name, email, gender, picture));
     }
