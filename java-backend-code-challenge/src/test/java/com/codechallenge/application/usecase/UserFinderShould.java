@@ -21,7 +21,7 @@ public class UserFinderShould {
     private UserFinder userFinder;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         userFinder = new UserFinder(userRepository);
     }
 
@@ -54,12 +54,16 @@ public class UserFinderShould {
         User resultedUser = userFinder.execute(testUsername);
 
         //assert
-        assertNotNull(resultedUser);
-        assertEquals(testName, resultedUser.name(), "name value");
-        assertEquals(testEmail, resultedUser.email(), "email value");
-        assertEquals(testGender, resultedUser.gender(), "gender value");
-        assertEquals(testPicture, resultedUser.picture(), "picture value");
-        assertEquals(testUsername, resultedUser.username(), "username value");
+        assertAll(
+                "Grouped Assertions of Expected User data",
+                () -> assertNotNull(resultedUser),
+                () -> assertEquals(testName, resultedUser.name(), "name value"),
+                () -> assertEquals(testEmail, resultedUser.email(), "email value"),
+                () -> assertEquals(testGender, resultedUser.gender(), "gender value"),
+                () -> assertEquals(testPicture, resultedUser.picture(), "picture value"),
+                () -> assertEquals(testUsername, resultedUser.username(), "username value")
+        );
+
     }
 
 

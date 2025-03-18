@@ -25,6 +25,8 @@ public class UserCreatorShould {
     @Mock
     private UserRepository userRepository;
     private UserCreator userCreator;
+    @Captor
+    ArgumentCaptor<User> userCaptor;
 
     @BeforeEach
     void setup(){
@@ -58,17 +60,26 @@ public class UserCreatorShould {
     @Test
     public void createAnUserWithSpecifiedData() {
         //Arrange
+        String username = "username";
+        String name = "name";
+        String email = "email@email.es";
+        String gender = "gender";
 
         //Act
-        userCreator.execute("TestUsername","name", "email@email.es", "gender");
+        userCreator.execute(username,name, email, gender);
+        Mockito.verify(userRepository).createUser(userCaptor.capture());
 
         //assert
-        Mockito.verify(userRepository).createUser(Mockito.any(User.class));
+        User userCaptured = userCaptor.getValue();
+
+        assertFalse(userCaptured.picture().isBlank());
+        assertEquals(username,userCaptured.username());
+        assertEquals(name,userCaptured.name());
+        assertEquals(email,userCaptured.email());
+        assertEquals(gender,userCaptured.gender());
     }
 
 
-    @Captor
-    ArgumentCaptor<User> userCaptor;
 
     @Test
     public void beCreatedWithAnAllowedPicture(){
@@ -81,5 +92,8 @@ public class UserCreatorShould {
         assertFalse(userCaptured.picture().isBlank());
         assertTrue(pattern.matcher(userCaptured.picture()).find());
     }
+
+
+
 
 }
