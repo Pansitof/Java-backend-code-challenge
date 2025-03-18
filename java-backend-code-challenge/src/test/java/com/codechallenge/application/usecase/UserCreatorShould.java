@@ -73,13 +73,13 @@ public class UserCreatorShould {
     @Test
     public void beCreatedWithAnAllowedPicture(){
         userCreator.execute("Pedro","name", "email@email.es", "gender");
-        Pattern pattern = Pattern.compile("^\\d{4}$");
+        Pattern pattern = Pattern.compile("^(\\w+)_(\\d{4})$");
 
         Mockito.verify(userRepository).createUser(userCaptor.capture());
         User userCaptured = userCaptor.getValue();
 
         assertFalse(userCaptured.picture().isBlank());
-        //assertTrue(pattern.matcher(userCaptured.picture()).find());
+        assertTrue(pattern.matcher(userCaptured.picture()).find());
     }
 
 }

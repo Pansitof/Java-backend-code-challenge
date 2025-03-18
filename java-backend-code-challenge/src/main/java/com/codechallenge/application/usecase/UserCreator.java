@@ -28,7 +28,7 @@ class UserCreator {
         if (Objects.nonNull(existingUser)){
             throw new UsernameAlreadyExistException();
         }
-        String picture = testUsername+"_"+String.valueOf(numberGenerator.generateFourRandomsDigits());
+        String picture = testUsername+"_"+numberGenerator.generateFourRandomsDigits();
         repository.createUser(new User(testUsername, name, email, gender, picture));
     }
 }
