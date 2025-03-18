@@ -114,9 +114,3 @@ public class UserCreatorShould {
     }
 
 }
-
-
-//Necesitaría el UsersFinder para asegurarse de que picture no se repita.
-//Un test que compruebe que en caso de que se repita, no se cree o se vuelve a generar un número aleatorio
-//Comprobar que el email no sea el mismo que uno ya existente --- DONE
-//
