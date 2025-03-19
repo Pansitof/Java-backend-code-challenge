@@ -21,10 +21,10 @@ class UserCreator {
 
     public void execute(String testUsername, String name, String email, String gender) {
         Pattern allowedEmailPattern = Pattern.compile("^(.+)@(.+)\\.(.+)$");
+        
         if(!allowedEmailPattern.matcher(email).find()) {
             throw new EmailInvalidFormatException("Email has Incorrect Format");
         }
-
         if (Objects.nonNull(repository.getById(testUsername))){
             throw new UsernameAlreadyExistException();
         }

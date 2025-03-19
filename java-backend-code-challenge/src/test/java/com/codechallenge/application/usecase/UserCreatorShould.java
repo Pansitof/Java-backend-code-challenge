@@ -6,6 +6,7 @@ import com.codechallenge.application.usecase.exception.EmailInvalidFormatExcepti
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.usecase.exception.UsernameAlreadyExistException;
 import com.codechallenge.application.ports.driven.UserRepository;
+import org.hibernate.mapping.Any;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -91,9 +92,9 @@ public class UserCreatorShould {
     @Test
     public void beCreatedWithAnAllowedPicture() {
         int pictureCodeGenerated = 1111;
+        String username = "Pedro";
         Mockito.when(numberGenerator.generateFourRandomsDigits()).thenReturn(pictureCodeGenerated);
 
-        String username = "Pedro";
         userCreator.execute(username, "name", "email@email.es", "gender");
 
         Mockito.verify(userRepository).createUser(userCaptor.capture());

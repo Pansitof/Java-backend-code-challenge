@@ -13,10 +13,10 @@ public class NumberGeneratorShould {
     @Test
     public void generateFourDigitsNumbers(){
         numberGenerator = new NumberGenerator();
-        Pattern pattern = Pattern.compile("^\\d{4}$");
+        Pattern patternOnlyFourDigits = Pattern.compile("^\\d{4}$");
         String numberGenerated = String.valueOf(numberGenerator.generateFourRandomsDigits());
 
         assertEquals(4,numberGenerated.length());
-        assertTrue(pattern.matcher(numberGenerated).find());
+        assertTrue(patternOnlyFourDigits.matcher(numberGenerated).find());
     }
 }

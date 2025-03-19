@@ -28,12 +28,12 @@ public class UserFinderShould {
     @Test
     public void notFindUserById() {
         //Arrange
-        String leUser = "leUser";
-        Mockito.when(userRepository.getById(leUser)).thenReturn(null);
+        String usernameTest = "leUser";
+        Mockito.when(userRepository.getById(usernameTest)).thenReturn(null);
 
         //Act & assert
         Exception exception = assertThrows(UserNotFoundException.class, () -> {
-            userFinder.execute(leUser);
+            userFinder.execute(usernameTest);
         });
 
         assertEquals("There isn't an user with that ID", exception.getMessage());
