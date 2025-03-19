@@ -5,6 +5,7 @@ import com.codechallenge.application.usecase.exception.UserNotFoundException;
 import com.codechallenge.application.ports.driven.UserRepository;
 
 import java.util.Objects;
+import java.util.Optional;
 
 class UserFinder {
     private UserRepository repository;
@@ -15,7 +16,7 @@ class UserFinder {
 
     public User execute(String username) {
         User resultedUser = repository.getById(username);
-        if (Objects.isNull(resultedUser)){
+        if (Optional.ofNullable(resultedUser).isEmpty()){
             throw new UserNotFoundException("There isn't an user with that ID");
         }
         return resultedUser;
