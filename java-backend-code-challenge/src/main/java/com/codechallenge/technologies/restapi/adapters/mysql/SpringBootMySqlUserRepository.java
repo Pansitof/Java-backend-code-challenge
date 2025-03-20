@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Primary
 @Repository
@@ -44,5 +45,10 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     @Override
     public User getByEmail(String email) {
         return null;
+    }
+
+    @Override
+    public Optional<User> getById2(String username) {
+        return Optional.empty();
     }
 }

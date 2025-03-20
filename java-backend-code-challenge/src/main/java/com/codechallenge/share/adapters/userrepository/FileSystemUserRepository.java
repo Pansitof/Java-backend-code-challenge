@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FileSystemUserRepository implements UserRepository {
 
@@ -55,6 +56,11 @@ public class FileSystemUserRepository implements UserRepository {
     @Override
     public User getByEmail(String email) {
         return null;
+    }
+
+    @Override
+    public Optional<User> getById2(String username) {
+        return Optional.empty();
     }
 
     private User convertJsonNodeToUser(JsonNode node){

@@ -28,21 +28,6 @@ public class UserFinderShould {
     }
 
     @Test
-    public void notFindUserById() {
-        //Arrange
-        String usernameTest = "leUser";
-        Mockito.when(userRepository.getById(usernameTest)).thenReturn(null);
-
-        //Act & assert
-        Exception exception = assertThrows(UserNotFoundException.class, () -> {
-            userFinder.execute(usernameTest);
-        });
-
-        assertEquals("There isn't an user with that ID", exception.getMessage());
-
-    }
-
-    @Test
     public void findUserByIdWithExpectedData() {
         //Arrange
         String testName = "TestName";
@@ -50,7 +35,8 @@ public class UserFinderShould {
         String testGender = "TestGender";
         String testPicture = "TestPicture";
         String testUsername = "TestUsername";
-        Mockito.when(userRepository.getById(testUsername)).thenReturn(UserMother.createUser(testUsername, testName, testEmail, testGender, testPicture));
+        User user = UserMother.createUser(testUsername, testName, testEmail, testGender, testPicture);
+        Mockito.when(userRepository.getById2(testUsername)).thenReturn(Optional.of(user));
 
         //Act
         User resultedUser = userFinder.execute(testUsername);
@@ -68,5 +54,19 @@ public class UserFinderShould {
 
     }
 
+    @Test
+    public void notFindUserById() {
+        //Arrange
+        String usernameTest = "leUser";
+        Mockito.when(userRepository.getById2(usernameTest)).thenReturn(Optional.empty());
+
+        //Act & assert
+        Exception exception = assertThrows(UserNotFoundException.class, () -> {
+            userFinder.execute(usernameTest);
+        });
+
+        assertEquals("There isn't an user with that ID", exception.getMessage());
+
+    }
 
 }
