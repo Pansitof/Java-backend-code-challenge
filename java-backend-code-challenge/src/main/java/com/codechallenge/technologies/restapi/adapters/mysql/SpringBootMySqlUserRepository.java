@@ -32,7 +32,7 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     }
 
     @Override
-    public User getByEmail(String email) {
+    public Optional<User> getByEmail(String email) {
         return null;
     }
 

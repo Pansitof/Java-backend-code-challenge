@@ -39,30 +39,6 @@ public class UserCreatorShould {
     }
 
     @Test
-    public void failByEmailIncorrectWhenUserIsBeingCreated() {
-
-        Exception exception = assertThrows(EmailInvalidFormatException.class, () -> {
-            userCreator.execute("TestUsername", "name", "INCORRECTEMAILFORMAT", "gender");
-        });
-
-        assertEquals("Email has Incorrect Format", exception.getMessage());
-    }
-
-    @Test
-    public void failByUsernameAlreadyExist() {
-        String testUsername = "TestUsername";
-
-        User user = UserMother.createUser(testUsername, "name", "Wewew@wewW.es", "gender", "picture");
-        Mockito.when(userRepository.getById(testUsername)).thenReturn(Optional.of(user));
-
-        Exception exception = assertThrows(UsernameAlreadyExistException.class, () -> {
-            userCreator.execute(testUsername, "name", "email@email.es", "gender");
-        });
-        assertEquals("Username already exist", exception.getMessage());
-        Mockito.verify(userRepository, Mockito.never()).createUser(Mockito.any(User.class));
-    }
-
-    @Test
     public void createAnUserWithSpecifiedData() {
         //Arrange
         String username = "username";
@@ -102,8 +78,33 @@ public class UserCreatorShould {
     }
 
     @Test
+    public void failByEmailIncorrectWhenUserIsBeingCreated() {
+
+        Exception exception = assertThrows(EmailInvalidFormatException.class, () -> {
+            userCreator.execute("TestUsername", "name", "INCORRECTEMAILFORMAT", "gender");
+        });
+
+        assertEquals("Email has Incorrect Format", exception.getMessage());
+    }
+
+    @Test
+    public void failByUsernameAlreadyExist() {
+        String testUsername = "TestUsername";
+
+        User user = UserMother.createUser(testUsername, "name", "Wewew@wewW.es", "gender", "picture");
+        Mockito.when(userRepository.getById(testUsername)).thenReturn(Optional.of(user));
+
+        Exception exception = assertThrows(UsernameAlreadyExistException.class, () -> {
+            userCreator.execute(testUsername, "name", "email@email.es", "gender");
+        });
+        assertEquals("Username already exist", exception.getMessage());
+        Mockito.verify(userRepository, Mockito.never()).createUser(Mockito.any(User.class));
+    }
+
+    @Test
     public void failByEmailAlreadyUsed() {
-        Mockito.when(userRepository.getByEmail("Wewew@wewW.es")).thenReturn(UserMother.createUser("testUsername", "testName", "Wewew@wewW.es", "testGender", "testPicture"));
+        User user = UserMother.createUser("testUsername", "testName", "Wewew@wewW.es", "testGender", "testPicture");
+        Mockito.when(userRepository.getByEmail("Wewew@wewW.es")).thenReturn(Optional.of(user));
 
         Exception exception = assertThrows(EmailAlreadyInUseException.class, () -> {
             userCreator.execute("TestUsername", "name", "Wewew@wewW.es", "gender");
@@ -111,5 +112,4 @@ public class UserCreatorShould {
 
         assertEquals("That email is already in use by another account", exception.getMessage());
     }
-
 }

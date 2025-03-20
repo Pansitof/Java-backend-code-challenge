@@ -28,7 +28,7 @@ class UserCreator {
         if (repository.getById(testUsername).isPresent()){
             throw new UsernameAlreadyExistException();
         }
-        if (Optional.ofNullable(repository.getByEmail(email)).isPresent()){
+        if (repository.getByEmail(email).isPresent()){
             throw new EmailAlreadyInUseException();
         }
 
