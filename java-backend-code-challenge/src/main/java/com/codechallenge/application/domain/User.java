@@ -1,5 +1,8 @@
 package com.codechallenge.application.domain;
 
+import java.util.Iterator;
+import java.util.List;
+
 public record User(String username,
                    String name,
                    String email,
@@ -7,26 +10,60 @@ public record User(String username,
                    String picture) {
 }
 
-/*
+
+
 class User2 {
-    private Email email;
 
-    public User2(Email email){
-        this.email=email;
+    public static void main(String[] args) {
+        Iterable<IAnimal> animals = List.of();
+        handle(animals);
     }
-
-    public Email getEmail(){
-        return email;
-    }
-
-    public static void main(String[] args){
-        Email value = new Email("value");
-        User2 newUser = new User2(null);
-        String variable = newUser.getEmail().value();
+    static void handle(Iterable<IAnimal> animals){
+        for (IAnimal animal: animals){
+            System.out.println(animal.GetName()+" _ "+animal.MakeSound());
+        }
     }
 }
 
-record Email(String value){
 
+interface IAnimal {
+    String GetName();
+
+    String MakeSound();
 }
-*/
+
+class Duck implements IAnimal {
+    @Override
+    public String GetName() {
+        return "Pato";
+    }
+
+    @Override
+    public String MakeSound() {
+        return "Quack!";
+    }
+}
+
+class Cat implements IAnimal {
+    @Override
+    public String GetName() {
+        return "Gato";
+    }
+
+    @Override
+    public String MakeSound() {
+        return "Miau";
+    }
+}
+
+class NullAnimal implements IAnimal {
+    @Override
+    public String GetName() {
+        return "";
+    }
+
+    @Override
+    public String MakeSound() {
+        return "";
+    }
+}
