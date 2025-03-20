@@ -31,8 +31,7 @@ public class FileSystemUserRepository implements UserRepository {
     }
 
     @Override
-    public User createUser(User user) {
-        return new User("","","","","");
+    public void createUser(User user) {
     }
 
     @Override

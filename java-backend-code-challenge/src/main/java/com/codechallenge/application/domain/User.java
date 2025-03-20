@@ -6,6 +6,7 @@ public record User(String username,
                    String gender,
                    String picture) {
 }
+
 /*
 class User2 {
     private Email email;

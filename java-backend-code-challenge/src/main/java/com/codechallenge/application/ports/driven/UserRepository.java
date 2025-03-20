@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserRepository {
     List<User> getAll();
 
-    User createUser(User user);
+    void createUser(User user);
 
     Optional<User> getByEmail(String email);
 
