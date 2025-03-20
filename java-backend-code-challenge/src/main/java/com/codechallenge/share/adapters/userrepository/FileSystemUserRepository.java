@@ -41,7 +41,20 @@ public class FileSystemUserRepository implements UserRepository {
 
     @Override
     public Optional<User> getById(String username) {
-        return Optional.empty();
+        ObjectMapper objectMapper = new ObjectMapper();
+        User user = null;
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonFile);
+            for (JsonNode node : jsonNode) {
+                if (username.equals(node.get("username").asText())) {
+                    user = convertJsonNodeToUser(node);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return Optional.of(user);
     }
 
     private User convertJsonNodeToUser(JsonNode node){
