@@ -27,17 +27,6 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     }
 
     @Override
-    public User getById(String username) {
-        List<UserEntity> userEntities = jpaUserRepository.findAll();
-        for (UserEntity user : userEntities){
-            if(user.username().equals(username)){
-                return new User(user.username(),user.name(),user.email(),user.gender(),user.picture());
-            }
-        }
-        return null;
-    }
-
-    @Override
     public User createUser(User user) {
         return new User("","","","","");
     }
@@ -48,7 +37,7 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> getById2(String username) {
+    public Optional<User> getById(String username) {
         return Optional.empty();
     }
 }

@@ -53,7 +53,7 @@ public class UserCreatorShould {
         String testUsername = "TestUsername";
 
         User user = UserMother.createUser(testUsername, "name", "Wewew@wewW.es", "gender", "picture");
-        Mockito.when(userRepository.getById2(testUsername)).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.getById(testUsername)).thenReturn(Optional.of(user));
 
         Exception exception = assertThrows(UsernameAlreadyExistException.class, () -> {
             userCreator.execute(testUsername, "name", "email@email.es", "gender");

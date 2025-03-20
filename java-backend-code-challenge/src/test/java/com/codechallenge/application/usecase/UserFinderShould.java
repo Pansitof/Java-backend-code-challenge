@@ -36,7 +36,7 @@ public class UserFinderShould {
         String testPicture = "TestPicture";
         String testUsername = "TestUsername";
         User user = UserMother.createUser(testUsername, testName, testEmail, testGender, testPicture);
-        Mockito.when(userRepository.getById2(testUsername)).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.getById(testUsername)).thenReturn(Optional.of(user));
 
         //Act
         User resultedUser = userFinder.execute(testUsername);
@@ -58,7 +58,7 @@ public class UserFinderShould {
     public void notFindUserById() {
         //Arrange
         String usernameTest = "leUser";
-        Mockito.when(userRepository.getById2(usernameTest)).thenReturn(Optional.empty());
+        Mockito.when(userRepository.getById(usernameTest)).thenReturn(Optional.empty());
 
         //Act & assert
         Exception exception = assertThrows(UserNotFoundException.class, () -> {

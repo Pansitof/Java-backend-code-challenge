@@ -7,7 +7,6 @@ import com.codechallenge.application.domain.User;
 import com.codechallenge.application.usecase.exception.UsernameAlreadyExistException;
 import com.codechallenge.application.ports.driven.UserRepository;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -26,7 +25,7 @@ class UserCreator {
         if(!allowedEmailPattern.matcher(email).find()) {
             throw new EmailInvalidFormatException("Email has Incorrect Format");
         }
-        if (repository.getById2(testUsername).isPresent()){
+        if (repository.getById(testUsername).isPresent()){
             throw new UsernameAlreadyExistException();
         }
         if (Optional.ofNullable(repository.getByEmail(email)).isPresent()){
