@@ -15,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -50,13 +52,13 @@ public class UserCreatorShould {
     public void failByUsernameAlreadyExist() {
         String testUsername = "TestUsername";
 
-        Mockito.when(userRepository.getById(testUsername)).thenReturn(UserMother.createUser(testUsername, "name", "Wewew@wewW.es", "gender", "picture"));
+        User user = UserMother.createUser(testUsername, "name", "Wewew@wewW.es", "gender", "picture");
+        Mockito.when(userRepository.getById2(testUsername)).thenReturn(Optional.of(user));
 
         Exception exception = assertThrows(UsernameAlreadyExistException.class, () -> {
             userCreator.execute(testUsername, "name", "email@email.es", "gender");
         });
         assertEquals("Username already exist", exception.getMessage());
-
         Mockito.verify(userRepository, Mockito.never()).createUser(Mockito.any(User.class));
     }
 

@@ -26,7 +26,7 @@ class UserCreator {
         if(!allowedEmailPattern.matcher(email).find()) {
             throw new EmailInvalidFormatException("Email has Incorrect Format");
         }
-        if (Optional.ofNullable(repository.getById(testUsername)).isPresent()){
+        if (repository.getById2(testUsername).isPresent()){
             throw new UsernameAlreadyExistException();
         }
         if (Optional.ofNullable(repository.getByEmail(email)).isPresent()){
