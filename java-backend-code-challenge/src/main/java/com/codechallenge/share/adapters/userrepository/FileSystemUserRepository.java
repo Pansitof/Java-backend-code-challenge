@@ -35,6 +35,11 @@ public class FileSystemUserRepository implements UserRepository {
     }
 
     @Override
+    public void modifyUser(User user) {
+
+    }
+
+    @Override
     public Optional<User> getByEmail(String email) {
         return null;
     }
