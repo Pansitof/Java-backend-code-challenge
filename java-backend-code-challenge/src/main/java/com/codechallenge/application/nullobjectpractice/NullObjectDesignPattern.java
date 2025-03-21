@@ -1,7 +1,5 @@
 package com.codechallenge.application.nullobjectpractice;
 
-import com.codechallenge.application.domain.*;
-
 import java.util.List;
 
 class NullObjectDesignPattern {
