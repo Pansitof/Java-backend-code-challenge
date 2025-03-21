@@ -62,6 +62,11 @@ public class FileSystemUserRepository implements UserRepository {
         return Optional.of(user);
     }
 
+    @Override
+    public void deleteUser(User user) {
+
+    }
+
     private User convertJsonNodeToUser(JsonNode node){
         User user = new User(
                 node.get("username").asText(),

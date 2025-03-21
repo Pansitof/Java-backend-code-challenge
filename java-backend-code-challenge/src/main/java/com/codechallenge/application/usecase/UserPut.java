@@ -45,7 +45,6 @@ public class UserPut {
 
         User newUser = new User(username, newName, newEmail, newGender, searchedUser.get().picture());
 
-
         repository.modifyUser(newUser);
     }
 

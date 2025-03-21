@@ -58,7 +58,7 @@ public class UserPutShould {
     }
 
     @Test
-    public void onlyUpdateSomeValues(){
+    public void UpdateUserWithOnlySomeData(){
         String username = "testUsername";
         String newGender = "newGender";
         User oldUser = UserMother.createUser(username, "testName", "testEmail@email.es", "testGender", "testPicture");

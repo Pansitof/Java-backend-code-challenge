@@ -50,4 +50,9 @@ public class SpringBootMySqlUserRepository implements UserRepository {
         }
         return Optional.empty();
     }
+
+    @Override
+    public void deleteUser(User user) {
+
+    }
 }

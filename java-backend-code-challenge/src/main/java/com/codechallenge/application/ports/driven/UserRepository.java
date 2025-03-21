@@ -15,4 +15,6 @@ public interface UserRepository {
     Optional<User> getByEmail(String email);
 
     Optional<User> getById(String username);
+
+    void deleteUser(User user);
 }
