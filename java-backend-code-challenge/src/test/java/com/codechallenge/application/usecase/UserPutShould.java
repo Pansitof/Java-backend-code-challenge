@@ -2,6 +2,7 @@ package com.codechallenge.application.usecase;
 
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.ports.driven.UserRepository;
+import com.codechallenge.application.usecase.exception.EmailAlreadyInUseException;
 import com.codechallenge.application.usecase.exception.EmailInvalidFormatException;
 import com.codechallenge.application.usecase.exception.UserNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,6 +58,28 @@ public class UserPutShould {
     }
 
     @Test
+    public void onlyUpdateSomeValues(){
+        String username = "testUsername";
+        String newGender = "newGender";
+        User oldUser = UserMother.createUser(username, "testName", "testEmail@email.es", "testGender", "testPicture");
+        Mockito.when(userRepository.getById(username)).thenReturn(Optional.of(oldUser));
+
+        userPut.execute(username, "", "", newGender);
+
+        Mockito.verify(userRepository).modifyUser(userCaptor.capture());
+        User userCaptured = userCaptor.getValue();
+
+        assertAll(
+                "Grouped Assertions of Expected modified User data",
+                () -> assertEquals(username, userCaptured.username()),
+                () -> assertEquals("testName", userCaptured.name()),
+                () -> assertEquals("testEmail@email.es", userCaptured.email()),
+                () -> assertEquals(newGender, userCaptured.gender()),
+                () -> assertEquals("testPicture", userCaptured.picture())
+        );
+    }
+
+    @Test
     public void failByUserNotExisting() {
         String usernameTest = "TestUsername";
         Mockito.when(userRepository.getById(usernameTest)).thenReturn(Optional.empty());
@@ -84,6 +107,16 @@ public class UserPutShould {
 
     @Test
     public void failByEmailAlreadyUsed() {
+        String username = "testUsername";
+        String email = "testEmail@email.es";
+        User oldUser = UserMother.createUser(username, "testName", email, "testGender", "testPicture");
+        Mockito.when(userRepository.getByEmail(email)).thenReturn(Optional.of(oldUser));
+        Mockito.when(userRepository.getById(username)).thenReturn(Optional.of(oldUser));
 
+        Exception exception = assertThrows(EmailAlreadyInUseException.class, () -> {
+            userPut.execute(username,"", email,"");
+        });
+
+        assertEquals("That email is already in use by another account", exception.getMessage());
     }
 }
