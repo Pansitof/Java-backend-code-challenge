@@ -116,10 +116,22 @@ public class UserCreatorShould {
 
     @Test
     public void failByEmptyValues(){
-        Exception exception = assertThrows(EmptyValuesException.class, () -> {
+        Exception exceptionAllEmpty = assertThrows(EmptyValuesException.class, () -> {
             userCreator.execute("","","Wewew@wewW.es","");
         });
+        Exception exceptionUserNameEmpty = assertThrows(EmptyValuesException.class, () -> {
+            userCreator.execute("","test","Wewew@wewW.es","test");
+        });
+        Exception exceptionNameEmpty = assertThrows(EmptyValuesException.class, () -> {
+            userCreator.execute("test","","Wewew@wewW.es","test");
+        });
+        Exception exceptionGenderEmpty = assertThrows(EmptyValuesException.class, () -> {
+            userCreator.execute("test","test","Wewew@wewW.es","");
+        });
 
-        assertEquals("You can't create an User with empty data", exception.getMessage());
+        assertEquals("You can't create an User with empty data", exceptionAllEmpty.getMessage());
+        assertEquals("You can't create an User with empty data", exceptionUserNameEmpty.getMessage());
+        assertEquals("You can't create an User with empty data", exceptionNameEmpty.getMessage());
+        assertEquals("You can't create an User with empty data", exceptionGenderEmpty.getMessage());
     }
 }
