@@ -4,6 +4,7 @@ import com.codechallenge.application.domain.NumberGenerator;
 import com.codechallenge.application.usecase.exception.EmailAlreadyInUseException;
 import com.codechallenge.application.usecase.exception.EmailInvalidFormatException;
 import com.codechallenge.application.domain.User;
+import com.codechallenge.application.usecase.exception.EmptyValuesException;
 import com.codechallenge.application.usecase.exception.UsernameAlreadyExistException;
 import com.codechallenge.application.ports.driven.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -111,5 +112,14 @@ public class UserCreatorShould {
         });
 
         assertEquals("That email is already in use by another account", exception.getMessage());
+    }
+
+    @Test
+    public void failByEmptyValues(){
+        Exception exception = assertThrows(EmptyValuesException.class, () -> {
+            userCreator.execute("","","Wewew@wewW.es","");
+        });
+
+        assertEquals("You can't create an User with empty data", exception.getMessage());
     }
 }

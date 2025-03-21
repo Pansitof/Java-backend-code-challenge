@@ -4,6 +4,7 @@ import com.codechallenge.application.domain.NumberGenerator;
 import com.codechallenge.application.usecase.exception.EmailAlreadyInUseException;
 import com.codechallenge.application.usecase.exception.EmailInvalidFormatException;
 import com.codechallenge.application.domain.User;
+import com.codechallenge.application.usecase.exception.EmptyValuesException;
 import com.codechallenge.application.usecase.exception.UsernameAlreadyExistException;
 import com.codechallenge.application.ports.driven.UserRepository;
 
@@ -24,6 +25,9 @@ class UserCreator {
         
         if(!allowedEmailPattern.matcher(email).find()) {
             throw new EmailInvalidFormatException("Email has Incorrect Format");
+        }
+        if (testUsername.isEmpty() || name.isEmpty() || gender.isEmpty()){
+            throw new EmptyValuesException("You can't create an User with empty data");
         }
         if (repository.getById(testUsername).isPresent()){
             throw new UsernameAlreadyExistException();
