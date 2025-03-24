@@ -2,6 +2,7 @@ package com.codechallenge.application.usecase;
 
 import com.codechallenge.application.domain.User;
 import com.codechallenge.application.ports.driven.UserRepository;
+import com.codechallenge.application.usecase.exception.UserNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserDeleteShould {
@@ -55,7 +55,15 @@ public class UserDeleteShould {
 
     @Test
     public void failByUserNotExisting(){
+        String usernameTest = "TestUsername";
+        Mockito.when(userRepository.getById(usernameTest)).thenReturn(Optional.empty());
 
+        //Act & assert
+        Exception exception = assertThrows(UserNotFoundException.class, () -> {
+            userDelete.execute(usernameTest);
+        });
+
+        assertEquals("There isn't an user with that ID", exception.getMessage());
     }
 
 
