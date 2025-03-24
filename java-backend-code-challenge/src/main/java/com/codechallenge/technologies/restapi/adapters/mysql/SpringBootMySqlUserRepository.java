@@ -57,7 +57,7 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     }
 
     @Override
-    public void generateUsers(int i) {
-
+    public Optional<List<User>> generateUsers(int i) {
+        return Optional.of(List.of());
     }
 }

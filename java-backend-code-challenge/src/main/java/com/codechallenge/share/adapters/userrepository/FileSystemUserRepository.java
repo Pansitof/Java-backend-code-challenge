@@ -68,8 +68,8 @@ public class FileSystemUserRepository implements UserRepository {
     }
 
     @Override
-    public void generateUsers(int i) {
-
+    public Optional<List<User>> generateUsers(int i) {
+        return Optional.of(List.of());
     }
 
     private User convertJsonNodeToUser(JsonNode node){

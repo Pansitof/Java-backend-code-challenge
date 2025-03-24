@@ -18,5 +18,5 @@ public interface UserRepository {
 
     void deleteUser(User user);
 
-    void generateUsers(int i);
+    Optional<List<User>> generateUsers(int i);
 }

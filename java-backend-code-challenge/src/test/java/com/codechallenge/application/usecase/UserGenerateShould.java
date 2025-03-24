@@ -1,11 +1,20 @@
 package com.codechallenge.application.usecase;
 
+import com.codechallenge.application.domain.User;
 import com.codechallenge.application.ports.driven.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class UserGenerateShould {
@@ -17,8 +26,23 @@ public class UserGenerateShould {
     void setup() {
         userGenerate = new UserGenerate(userRepository);
     }
+
+    @Captor
+    ArgumentCaptor<User> userCaptor;
+
     @Test
     public void createAsMuchUsersAsIndicated(){
-        userRepository.generateUsers(5);
+        Mockito.when(userRepository.generateUsers(4)).thenReturn(Optional.of(List.of(
+                UserMother.createUser("Pedro", "Pedro", "Pedro@Pedro.es", "Pedro", "Pedro"),
+                UserMother.createUser("Martin", "Martin", "Martin@Martin.es", "Martin", "Martin"),
+                UserMother.createUser("Salome", "Salome", "Salome@Salome.es", "Salome", "Salome"),
+                UserMother.createUser("Maria", "Maria", "Maria@Maria.es", "Maria", "Maria"))));
+
+        userGenerate.execute(4);
+
+        Mockito.verify(userRepository, Mockito.times(4)).createUser(userCaptor.capture());
+
+        assertEquals(4,userCaptor.getAllValues().size());
+
     }
 }
