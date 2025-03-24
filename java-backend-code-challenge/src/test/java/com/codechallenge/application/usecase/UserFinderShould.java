@@ -28,7 +28,7 @@ public class UserFinderShould {
     }
 
     @Test
-    public void findUserByIdWithExpectedData() {
+    public void findUserWithExpectedData() {
         //Arrange
         String testName = "TestName";
         String testEmail = "TestEmail";
