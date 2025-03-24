@@ -16,8 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserGenerateShould {
@@ -34,17 +33,31 @@ public class UserGenerateShould {
     ArgumentCaptor<User> userCaptor;
 
     @Test
-    public void createAsMuchUsersAsIndicated() {
+    public void createValidUsersAsIndicated() {
+        User userPedro = UserMother.createUser("Pedro", "Pedro", "Pedro@Pedro.es", "Pedro", "Pedro");
+        User userMartin = UserMother.createUser("Martin", "Martin", "Martin@Martin.es", "Martin", "Martin");
+        User userSalome = UserMother.createUser("Salome", "Salome", "Salome@Salome.es", "Salome", "Salome");
+        User userMaria = UserMother.createUser("Maria", "Maria", "Maria@Maria.es", "Maria", "Maria");
         Mockito.when(userRepository.generateUsers(4)).thenReturn(Optional.of(List.of(
-                UserMother.createUser("Pedro", "Pedro", "Pedro@Pedro.es", "Pedro", "Pedro"),
-                UserMother.createUser("Martin", "Martin", "Martin@Martin.es", "Martin", "Martin"),
-                UserMother.createUser("Salome", "Salome", "Salome@Salome.es", "Salome", "Salome"),
-                UserMother.createUser("Maria", "Maria", "Maria@Maria.es", "Maria", "Maria"))));
+                userPedro,
+                userMartin,
+                userSalome,
+                userMaria)));
 
         userGenerate.execute(4);
 
         Mockito.verify(userRepository, Mockito.times(4)).createUser(userCaptor.capture());
-        assertEquals(4, userCaptor.getAllValues().size());
+        List<User> UsersGeneratedAndCreated = userCaptor.getAllValues();
+        assertAll(
+                "Grouped Assertions of Generated Randomly Users",
+                () -> assertEquals(4, UsersGeneratedAndCreated.size()),
+                () -> assertEquals(userPedro, UsersGeneratedAndCreated.get(0)),
+                () -> assertEquals(userMartin, UsersGeneratedAndCreated.get(1)),
+                () -> assertEquals(userSalome, UsersGeneratedAndCreated.get(2)),
+                () -> assertEquals(userMaria, UsersGeneratedAndCreated.get(3))
+        );
+
+
     }
 
     @Test
