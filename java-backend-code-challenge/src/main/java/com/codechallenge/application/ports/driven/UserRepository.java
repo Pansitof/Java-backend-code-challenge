@@ -17,4 +17,6 @@ public interface UserRepository {
     Optional<User> getById(String username);
 
     void deleteUser(User user);
+
+    void generateUsers(int i);
 }

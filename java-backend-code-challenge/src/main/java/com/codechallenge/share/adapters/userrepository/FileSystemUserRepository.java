@@ -67,6 +67,11 @@ public class FileSystemUserRepository implements UserRepository {
 
     }
 
+    @Override
+    public void generateUsers(int i) {
+
+    }
+
     private User convertJsonNodeToUser(JsonNode node){
         User user = new User(
                 node.get("username").asText(),

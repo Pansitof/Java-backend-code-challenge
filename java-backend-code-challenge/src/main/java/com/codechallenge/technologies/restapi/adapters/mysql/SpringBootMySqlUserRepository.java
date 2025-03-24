@@ -55,4 +55,9 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     public void deleteUser(User user) {
 
     }
+
+    @Override
+    public void generateUsers(int i) {
+
+    }
 }

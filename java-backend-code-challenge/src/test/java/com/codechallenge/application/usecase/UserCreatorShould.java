@@ -78,7 +78,7 @@ public class UserCreatorShould {
     }
 
     @Test
-    public void failByEmailIncorrectWhenUserIsBeingCreated() {
+    public void failByIncorrectEmail() {
 
         Exception exception = assertThrows(EmailInvalidFormatException.class, () -> {
             userCreator.execute("TestUsername", "name", "INCORRECTEMAILFORMAT", "gender");
