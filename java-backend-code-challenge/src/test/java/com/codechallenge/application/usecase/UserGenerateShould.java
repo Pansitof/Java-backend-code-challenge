@@ -47,17 +47,15 @@ public class UserGenerateShould {
         userGenerate.execute(4);
 
         Mockito.verify(userRepository, Mockito.times(4)).createUser(userCaptor.capture());
-        List<User> UsersGeneratedAndCreated = userCaptor.getAllValues();
+        List<User> Users = userCaptor.getAllValues();
         assertAll(
                 "Grouped Assertions of Generated Randomly Users",
-                () -> assertEquals(4, UsersGeneratedAndCreated.size()),
-                () -> assertEquals(userPedro, UsersGeneratedAndCreated.get(0)),
-                () -> assertEquals(userMartin, UsersGeneratedAndCreated.get(1)),
-                () -> assertEquals(userSalome, UsersGeneratedAndCreated.get(2)),
-                () -> assertEquals(userMaria, UsersGeneratedAndCreated.get(3))
+                () -> assertEquals(4, Users.size()),
+                () -> assertEquals(userPedro, Users.get(0)),
+                () -> assertEquals(userMartin, Users.get(1)),
+                () -> assertEquals(userSalome, Users.get(2)),
+                () -> assertEquals(userMaria, Users.get(3))
         );
-
-
     }
 
     @Test
