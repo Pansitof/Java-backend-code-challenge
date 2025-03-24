@@ -55,7 +55,7 @@ public class UserFinderShould {
     }
 
     @Test
-    public void notFindUserById() {
+    public void failByUserNotExisting() {
         //Arrange
         String usernameTest = "leUser";
         Mockito.when(userRepository.getById(usernameTest)).thenReturn(Optional.empty());
