@@ -20,8 +20,7 @@ public class UserGenerate {
         if (users.isEmpty()) {
             throw new CantGenerateZeroUsersException();
         }
-        List<User> generatedRandomlyUsers = users.get();
-        for (User user : generatedRandomlyUsers){
+        for (User user : users.get()){
             userRepository.createUser(user);
         }
     }
