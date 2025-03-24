@@ -22,8 +22,16 @@ public class UserManager {
         return new UserFinder(repository).execute(username);
     }
 
-    public void createUser(String testUsername, String name, String email, String gender) {
-        new UserCreator(repository, new NumberGenerator()).execute(testUsername, name, email, gender);
+    public void createUser(String Username, String name, String email, String gender) {
+        new UserCreator(repository, new NumberGenerator()).execute(Username, name, email, gender);
+    }
+
+    public void modifyUser(String Username, String name, String email, String gender) {
+        new UserPut(repository).execute(Username, name, email, gender);
+    }
+
+    public void deleteUser(String username) {
+        new UserDelete(repository).execute(username);
     }
 
 }
