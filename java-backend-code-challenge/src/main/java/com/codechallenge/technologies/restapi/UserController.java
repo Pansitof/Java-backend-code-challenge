@@ -34,7 +34,7 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.getUser(username));
         } catch (RuntimeException e) {
-            return (ResponseEntity<User>) ResponseEntity.badRequest();
+            return ResponseEntity.notFound().build();
         }
     }
 
