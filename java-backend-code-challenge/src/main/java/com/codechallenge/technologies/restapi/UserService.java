@@ -24,4 +24,7 @@ public class UserService {
         return userManager.getUserById(username);
     }
 
+    public void createUser(String username, String name, String email, String gender) {
+        userManager.createUser(username,name,email,gender);
+    }
 }
