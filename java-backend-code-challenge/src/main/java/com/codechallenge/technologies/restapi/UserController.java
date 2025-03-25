@@ -40,9 +40,13 @@ public class UserController {
 
     @PostMapping("/api/users/")
     public ResponseEntity postUser(@RequestBody UserCreateUpdate user) {
-        System.out.println(user);
+        try {
+            userService.createUser(user.username(), user.name(), user.email(), user.gender());
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
 
-        return ResponseEntity.ok().build();
     }
 
 }
