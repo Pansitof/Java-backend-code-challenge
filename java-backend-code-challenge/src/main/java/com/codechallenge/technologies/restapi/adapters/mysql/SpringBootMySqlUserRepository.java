@@ -28,13 +28,14 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public void createUser(User user) {
-        UserEntity userEntity = new UserEntity(user.username(),user.name(), user.email(), user.gender(), user.picture());
+        UserEntity userEntity = convertUserToUserEntity(user);
         jpaUserRepository.save(userEntity);
     }
 
     @Override
     public void modifyUser(User user) {
-
+        UserEntity userEntity = convertUserToUserEntity(user);
+        jpaUserRepository.save(userEntity);
     }
 
     @Override
@@ -61,11 +62,17 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public void deleteUser(User user) {
+        UserEntity userEntity = convertUserToUserEntity(user);
+        jpaUserRepository.delete(userEntity);
 
     }
 
     @Override
     public Optional<List<User>> generateUsers(int i) {
         return Optional.of(List.of());
+    }
+
+    public UserEntity convertUserToUserEntity(User user ){
+        return new UserEntity(user.username(),user.name(), user.email(), user.gender(), user.picture());
     }
 }

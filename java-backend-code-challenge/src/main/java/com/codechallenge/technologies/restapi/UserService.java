@@ -27,4 +27,10 @@ public class UserService {
     public void createUser(String username, String name, String email, String gender) {
         userManager.createUser(username,name,email,gender);
     }
+    public void updateUser(String username, String name, String email, String gender){
+        userManager.modifyUser(username,name,email,gender);
+    }
+    public void deleteUser(String userName){
+        userManager.deleteUser(userName);
+    }
 }
