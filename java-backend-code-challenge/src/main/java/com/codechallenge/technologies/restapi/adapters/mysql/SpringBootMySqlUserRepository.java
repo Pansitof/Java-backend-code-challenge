@@ -28,14 +28,12 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public void createUser(User user) {
-        UserEntity userEntity = convertUserToUserEntity(user);
-        jpaUserRepository.save(userEntity);
+        jpaUserRepository.save(convertUserToUserEntity(user));
     }
 
     @Override
     public void modifyUser(User user) {
-        UserEntity userEntity = convertUserToUserEntity(user);
-        jpaUserRepository.save(userEntity);
+        jpaUserRepository.save(convertUserToUserEntity(user));
     }
 
     @Override
@@ -51,20 +49,13 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public Optional<User> getById(String username) {
-        List<UserEntity> userEntities = jpaUserRepository.findAll();
-        for (UserEntity user : userEntities){
-            if(user.username().equals(username)){
-                return Optional.of(new User(user.username(),user.name(),user.email(),user.gender(),user.picture()));
-            }
-        }
-        return Optional.empty();
+        UserEntity user = jpaUserRepository.getReferenceById(username);
+        return Optional.of(new User(user.username(),user.name(),user.email(),user.gender(),user.picture()));
     }
 
     @Override
     public void deleteUser(User user) {
-        UserEntity userEntity = convertUserToUserEntity(user);
-        jpaUserRepository.delete(userEntity);
-
+        jpaUserRepository.delete(convertUserToUserEntity(user));
     }
 
     @Override
