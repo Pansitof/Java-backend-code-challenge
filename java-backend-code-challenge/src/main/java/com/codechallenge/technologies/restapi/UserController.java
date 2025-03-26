@@ -44,7 +44,8 @@ public class UserController {
             userService.createUser(user.username(), user.name(), user.email(), user.gender());
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+
+            return ResponseEntity.badRequest().build();
         }
 
     }

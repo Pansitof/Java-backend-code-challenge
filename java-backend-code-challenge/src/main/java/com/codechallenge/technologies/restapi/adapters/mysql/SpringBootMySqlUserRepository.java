@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class SpringBootMySqlUserRepository implements UserRepository {
 
-    private JpaUserRepository jpaUserRepository;
+    private final JpaUserRepository jpaUserRepository;
 
     public SpringBootMySqlUserRepository(JpaUserRepository jpaUserRepository){
         this.jpaUserRepository = jpaUserRepository;
@@ -28,6 +28,8 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public void createUser(User user) {
+        UserEntity userEntity = new UserEntity(user.username(),user.name(), user.email(), user.gender(), user.picture());
+        jpaUserRepository.save(userEntity);
     }
 
     @Override
@@ -37,7 +39,13 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public Optional<User> getByEmail(String email) {
-        return null;
+        List<UserEntity> userEntities = jpaUserRepository.findAll();
+        for (UserEntity user : userEntities){
+            if(user.email().equals(email)){
+                return Optional.of(new User(user.username(),user.name(),user.email(),user.gender(),user.picture()));
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
