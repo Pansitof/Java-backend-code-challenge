@@ -14,20 +14,21 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     private final JpaUserRepository jpaUserRepository;
 
-    public SpringBootMySqlUserRepository(JpaUserRepository jpaUserRepository){
+    public SpringBootMySqlUserRepository(JpaUserRepository jpaUserRepository) {
         this.jpaUserRepository = jpaUserRepository;
     }
 
     @Override
     public List<User> getAll() {
         List<UserEntity> userEntities = jpaUserRepository.findAll();
-        return userEntities.stream().map(userEntity ->{
-           return new User(userEntity.username(),userEntity.name(),userEntity.email(),userEntity.gender(),userEntity.picture());
+        return userEntities.stream().map(userEntity -> {
+            return new User(userEntity.username(), userEntity.name(), userEntity.email(), userEntity.gender(), userEntity.picture());
         }).toList();
     }
 
     @Override
     public void createUser(User user) {
+        System.out.println(user);
         jpaUserRepository.save(convertUserToUserEntity(user));
     }
 
@@ -39,9 +40,9 @@ public class SpringBootMySqlUserRepository implements UserRepository {
     @Override
     public Optional<User> getByEmail(String email) {
         List<UserEntity> userEntities = jpaUserRepository.findAll();
-        for (UserEntity user : userEntities){
-            if(user.email().equals(email)){
-                return Optional.of(new User(user.username(),user.name(),user.email(),user.gender(),user.picture()));
+        for (UserEntity user : userEntities) {
+            if (user.email().equals(email)) {
+                return Optional.of(new User(user.username(), user.name(), user.email(), user.gender(), user.picture()));
             }
         }
         return Optional.empty();
@@ -49,8 +50,13 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public Optional<User> getById(String username) {
-        UserEntity user = jpaUserRepository.getReferenceById(username);
-        return Optional.of(new User(user.username(),user.name(),user.email(),user.gender(),user.picture()));
+        List<UserEntity> userEntities = jpaUserRepository.findAll();
+        for (UserEntity user : userEntities) {
+            if (user.username().equals(username)) {
+                return Optional.of(new User(user.username(), user.name(), user.email(), user.gender(), user.picture()));
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -63,7 +69,7 @@ public class SpringBootMySqlUserRepository implements UserRepository {
         return Optional.of(List.of());
     }
 
-    public UserEntity convertUserToUserEntity(User user ){
-        return new UserEntity(user.username(),user.name(), user.email(), user.gender(), user.picture());
+    public UserEntity convertUserToUserEntity(User user) {
+        return new UserEntity(user.username(), user.name(), user.email(), user.gender(), user.picture());
     }
 }

@@ -42,6 +42,7 @@ public class UserController {
             userService.createUser(user.username(), user.name(), user.email(), user.gender());
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().build();
         }
 
@@ -59,6 +60,7 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @DeleteMapping("/api/users/{username}/")
     public ResponseEntity deleteUser(@PathVariable String username){
         try {
