@@ -1,10 +1,14 @@
 package com.codechallenge.technologies.restapi.adapters.mysql;
 
 import com.codechallenge.application.domain.User;
+import com.codechallenge.application.domain.UserGenerator;
 import com.codechallenge.application.ports.driven.UserRepository;
+import com.codechallenge.application.usecase.exception.CantGenerateZeroUsersException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +70,16 @@ public class SpringBootMySqlUserRepository implements UserRepository {
 
     @Override
     public Optional<List<User>> generateUsers(int i) {
-        return Optional.of(List.of());
+        List<User> users = new ArrayList<>();
+        UserGenerator userGenerator = new UserGenerator();
+        for (int j = 0; j < i; j++) {
+            try {
+                users.add(userGenerator.generateAnUser());
+            } catch (IOException e) {
+                throw new CantGenerateZeroUsersException();
+            }
+        }
+        return Optional.of(users);
     }
 
     public UserEntity convertUserToUserEntity(User user) {

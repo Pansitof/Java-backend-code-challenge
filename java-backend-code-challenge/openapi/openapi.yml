@@ -1,0 +1,721 @@
+openapi: 3.0.3
+info:
+  description: |
+    Realizando pruebas sobre OpenAPI para el proyecto: java-backend-code-challenge para la tecnología 
+    de Spring boot APIRest.
+  version: 0.0.1
+  title: API Rest
+  contact:
+    email: francisco.dominguez@training.agiletv.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: 'http://localhost:8080'
+    description: LOCAL development environment
+tags:
+  - name: user
+    description: >-
+      Los usuarios de la aplicación.
+paths:
+  /api/users/:
+    get:
+      tags:
+        - user
+      description: Operation to get the list of users.
+      summary: Get all users
+      operationId: getUsers
+      parameters:
+        - $ref: '#/components/parameters/PageNumberParameter'
+        - $ref: '#/components/parameters/PageSizeParameter'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetProductsResponse'
+        '400':
+          $ref: '#/components/responses/400Response'
+        '401':
+          $ref: '#/components/responses/401Response'
+        '403':
+          $ref: '#/components/responses/403Response'
+        '404':
+          $ref: '#/components/responses/404Response'
+        '405':
+          $ref: '#/components/responses/405Response'
+        '406':
+          $ref: '#/components/responses/406Response'
+        '429':
+          $ref: '#/components/responses/429Response'
+        '500':
+          $ref: '#/components/responses/500Response'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        [ ]
+components:
+    securitySchemes:
+      dev_auth:
+        type: oauth2
+        description: Use this for dev environment
+        flows:
+          authorizationCode:
+            authorizationUrl: >-
+              https://keycloak.agile.int/auth/realms/agiletv/protocol/openid-connect/auth
+            tokenUrl: >-
+              https://keycloak.agile.int/auth/realms/agiletv/protocol/openid-connect/token
+            scopes:
+              write: modify
+              read: read
+      pre-env_auth:
+        type: oauth2
+        description: Use this for pre-production environment
+        flows:
+          authorizationCode:
+            authorizationUrl: >-
+              https://preagiletv.cloud-iam.com/auth/realms/agiletv/protocol/openid-connect/auth
+            tokenUrl: >-
+              https://preagiletv.cloud-iam.com/auth/realms/agiletv/protocol/openid-connect/token
+            scopes:
+              write: modify
+              read: read
+      pro-env_auth:
+        type: oauth2
+        description: Use this for production environment
+        flows:
+          authorizationCode:
+            authorizationUrl: >-
+              https://agiletv.cloud-iam.com/auth/realms/agiletv/protocol/openid-connect/auth
+            tokenUrl: >-
+              https://agiletv.cloud-iam.com/auth/realms/agiletv/protocol/openid-connect/token
+            scopes:
+              write: modify
+              read: read
+      basic_auth:
+        type: http
+        description: Use this for basic authentication
+        scheme: basic
+    responses:
+      204Response:
+        description: No content
+      400Response:
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      401Response:
+        description: Unauthorized
+      403Response:
+        description: Forbidden
+      404Response:
+        description: Not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      405Response:
+        description: Method not allowed
+      406Response:
+        description: Not Acceptable
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      418Response:
+        description: I'm a teapot
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      429Response:
+        description: Too Many Requests
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      500Response:
+        description: Internal Server Error
+      ErrorResponse:
+        description: An Error Response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      GetProductsResponse:
+        description: Products page
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductResponsePage'
+            examples:
+              ExampleOne:
+                value:
+                  items:
+                    - id: 9f720d99-41ee-4476-85ab-bf19a2f49d40
+                      name: Guitar
+                      description: Bass but with 6 strings
+                      price: 100.0
+                      status: 'IN_STOCK'
+                      created_on: '2021-01-01T00:00:00Z'
+                    - id: 1ed35fd0-95d2-4b14-9fcb-b8f9a87b3940
+                      name: Drum
+                      description: Leather drum
+                      price: 200.0
+                      status: IN_STOCK
+                      created_on: '2021-01-01T00:00:00Z'
+                  paging:
+                    totalElements: 2
+                    totalPages: 1
+              ExampleTwo:
+                value:
+                  items:
+                    - id: 7f8fd1e1-2e6c-431f-994d-520e82f09342
+                      name: Piano
+                      description: Spinnet piano
+                      price: 300.0
+                      status: 'IN_STOCK'
+                      created_on: '2021-01-01T00:00:00Z'
+                    - id: 231a71c4-d5ee-45ea-861e-dbf24b4f2417
+                      name: Violin
+                      description: Electric violin
+                      price: 400.0
+                      status: 'IN_STOCK'
+                      created_on: '2021-01-01T00:00:00Z'
+                  paging:
+                    totalElements: 2
+                    totalPages: 1
+      GetProductResponse:
+        description: Product Response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+            examples:
+              ExampleOne:
+                value:
+                  id: cecc2fc3-dbbf-4d27-accb-667e70bd3812
+                  name: 'Guitar'
+                  description: 'Acoustic guitar'
+                  price: 100.0
+                  status: 'IN_STOCK'
+                  created_on: '2021-01-01T00:00:00Z'
+              ExampleTwo:
+                value:
+                  id: ef6d9a6c-a1d6-46e8-ab7f-7104329b711f
+                  name: 'Drum'
+                  description: 'Full drum set'
+                  price: 200.0
+                  status: 'IN_STOCK'
+                  created_on: '2021-01-01T00:00:00Z'
+      GetInvoicesResponse:
+        description: Invoices page response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceResponsePage'
+            examples:
+              ExampleOne:
+                value:
+                  items:
+                    - id: 2cef73ba-778f-4138-8e2a-7baaada11465
+                      userId: ac68e60d-65c3-401e-a264-284c8f905f24
+                      items:
+                        - product:
+                            id: 3b8ed589-bf38-481e-bb4f-7e54dce2c100
+                            name: 'Guitar'
+                            description: 'Carlos Santana guitar'
+                            price: 100.0
+                            status: 'IN_STOCK'
+                            created_on: '2021-01-01T00:00:00Z'
+                          quantity: 1
+                      totalPrice: 100.0
+                      createdOn: '2021-01-01T00:00:00Z'
+                    - id: 23554b41-4595-4e87-931b-247973b68383
+                      userId: ac68e60d-65c3-401e-a264-284c8f905f24
+                      items:
+                        - product:
+                            id: 735d82d0-1f9e-4355-975c-23ad23a17d93
+                            name: 'Trumpet'
+                            description: 'Miles Davis trumpet'
+                            price: 100.0
+                            status: 'IN_STOCK'
+                            created_on: '2021-01-01T00:00:00Z'
+                          quantity: 2
+                        - product:
+                            id: 55b61b2a-e264-410d-9e69-3687d189dbb2
+                            name: 'Drum'
+                            description: 'Alejandro González drum'
+                            price: 200.0
+                            status: 'IN_STOCK'
+                            created_on: '2021-01-01T00:00:00Z'
+                          quantity: 3
+                      totalPrice: 800.0
+                      createdOn: '2021-01-01T00:00:00Z'
+                  paging:
+                    totalElements: 2
+                    totalPages: 1
+      GetInvoiceResponse:
+        description: Invoice Response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+            examples:
+              ExampleOne:
+                value:
+                  id: 5a3ab65d-9a2c-4aeb-a99c-adf8783d2f7a
+                  userId: 6305854d-df8e-4a86-a3f9-e69d06a58e63
+                  products:
+                    - id: 61c54734-9281-4aa0-9e69-4c49ca49150b
+                      userId: c49df82e-0f45-4d37-8267-4b8524fa5814
+                      name: 'Guitar'
+                      description: 'Yngwie Malmsteen guitar'
+                      price: 100.0
+                      status: 'IN_STOCK'
+                      createdOn: '2021-01-01T00:00:00Z'
+                    - id: a3885b64-f5c8-472d-8e46-5d4bd16bddd6
+                      userId: 73fba6c8-caec-4bad-a329-a79c9677657d
+                      name: 'Drum'
+                      description: 'Esperanza Spalding drum'
+                      price: 200.0
+                      status: 'IN_STOCK'
+                      createdOn: '2021-01-01T00:00:00Z'
+                  totalPrice: 300.0
+                  createdOn: '2021-01-01T00:00:00Z'
+              ExampleTwo:
+                value:
+                  id: 46cfb283-48c2-4b45-8df4-f3cfd1130d65
+                  userId: e9fa1e36-a50e-4440-98a8-4b4da8f0744e
+                  products:
+                    - id: 57975df9-a53d-47c0-809a-7b8657dc0317
+                      userId: b49a2eb7-2f89-4bfa-92c4-3aadbff8823a
+                      name: 'Piano'
+                      description: 'Ludwig van Beethoven piano'
+                      price: 300.0
+                      status: 'IN_STOCK'
+                      createdOn: '2021-01-01T00:00:00Z'
+                    - id: d4fa19f9-c088-4e18-8ada-2e6a8a93bfc4
+                      userId: df2f5d34-98e6-4f3d-ba0c-0b2eb2de3904
+                      name: 'Violin'
+                      description: 'Hilary Hahn violin'
+                      price: 400.0
+                      status: 'IN_STOCK'
+                      createdOn: '2021-01-01T00:00:00Z'
+                  totalPrice: 700.0
+                  createdOn: '2021-01-01T00:00:00Z'
+      GetCartResponse:
+        description: Cart Response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+            examples:
+              ExampleOne:
+                value:
+                  id: 7fc0c407-2b98-4af3-8319-ff004c194523
+                  userId: 9f924802-b792-4201-8faa-096c1eee1155
+                  items:
+                    - product:
+                        id: 1d63bcab-cf3d-48b4-8ce4-59f805d18997
+                        name: 'Guitar'
+                        description: 'Jimi Hendrix guitar'
+                        price: 100.0
+                        status: 'IN_STOCK'
+                        created_on: '2021-01-01T00:00:00Z'
+                      quantity: 1
+                    - product:
+                        id: 9b04e1a1-db3f-474b-a55c-7f231cf0cd1d
+                        name: 'Drum'
+                        description: 'Yamaha drum'
+                        price: 200.0
+                        status: 'IN_STOCK'
+                        created_on: '2021-01-01T00:00:00Z'
+                      quantity: 2
+              ExampleTwo:
+                value:
+                  id: 305c0ebc-0dd2-47bf-ae93-c2c8b556cc38
+                  userId: 1d6700b4-a19c-4ca4-8a47-5bc88df27c94
+                  items:
+                    - product:
+                        id: 9f98c248-4812-4a02-8acc-0df2aadd575d
+                        name: 'Trumpet'
+                        description: 'Timmy Trumpet''s trumpet'
+                        price: 500.0
+                        status: 'IN_STOCK'
+                        created_on: '2021-01-01T00:00:00Z'
+                      quantity: 3
+                    - product:
+                        id: 5fdcc641-d2da-4394-b6e5-22329da40ba3
+                        name: 'Saxophone'
+                        description: 'Xaphoon saxophone'
+                        price: 600.0
+                        status: 'IN_STOCK'
+                        created_on: '2021-01-01T00:00:00Z'
+                      quantity: 4
+
+    parameters:
+      UserIdParameter:
+        in: path
+        name: user-id
+        description: User identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/Identifier'
+      ProductIdParameter:
+        in: path
+        name: product-id
+        description: Product identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/Identifier'
+      PageNumberParameter:
+        in: query
+        required: false
+        name: page
+        schema:
+          $ref: '#/components/schemas/PageNumber'
+      PageSizeParameter:
+        in: query
+        required: false
+        name: size
+        schema:
+          $ref: '#/components/schemas/PageSize'
+      InvoiceIdParameter:
+        name: invoice-id
+        in: path
+        description: ID of the invoice to retrieve
+        required: true
+        schema:
+          $ref: '#/components/schemas/Identifier'
+      CartIdParameter:
+        in: path
+        name: cart-id
+        description: Cart identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/Identifier'
+      quantity:
+        in: query
+        name: quantity
+        description: Number of products to add to the cart. If not provided, defaults to 1.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          default: 1
+
+    requestBodies:
+      CreateProductRequest:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductCommand'
+      SaveProductRequest:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveProductCommand'
+      UpdateProductRequest:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductCommand'
+      UpdateProductStatusRequest:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductStatusCommand'
+
+    schemas:
+      ProductStatus:
+        type: string
+        enum:
+          - IN_STOCK
+          - SOLD_OUT
+          - DISCONTINUED
+        example: IN_STOCK
+      SaveProductCommand:
+        type: object
+        description: SaveProductCommand
+        required:
+          - userId
+          - productId
+          - name
+          - description
+          - price
+        properties:
+          userId:
+            $ref: '#/components/schemas/Identifier'
+          productId:
+            $ref: '#/components/schemas/Identifier'
+          name:
+            type: string
+            description: Name of the product
+          description:
+            type: string
+            description: Description of the product
+          price:
+            type: number
+            format: float
+            description: Price of the product
+        additionalProperties: false
+        example:
+          userId: 217742d7-827f-4fc1-b649-f59539dd65b9
+          productId: 5b6f1e9d-1b7d-4b6d-8b8e-6b4b3e3b3b3b
+          name: Example Product
+          description: This is an example product
+          price: 100.00
+      CreateProductCommand:
+        type: object
+        description: SaveProductCommand
+        required:
+          - name
+          - description
+          - price
+        properties:
+          productId:
+            $ref: '#/components/schemas/Identifier'
+          name:
+            type: string
+            description: Name of the product
+          description:
+            type: string
+            description: Description of the product
+          price:
+            type: number
+            format: float
+            description: Price of the product
+        additionalProperties: false
+        example:
+          name: Example Product
+          description: This is an example product
+          price: 100.00
+      PageNumber:
+        type: integer
+        minimum: 0
+        maximum: 1024
+        format: int32
+        default: 0
+      PageSize:
+        type: integer
+        minimum: 10
+        maximum: 2000
+        format: int32
+        default: 10
+      Identifier:
+        description: Unique identifier
+        type: string
+        format: uuid
+        example: 18368bf6-9d7a-4d42-a1e1-57ee41337393
+      PagingData:
+        description: Paging response data
+        type: object
+        required:
+          - totalElements
+          - totalPages
+        properties:
+          totalElements:
+            type: integer
+            format: int64
+          totalPages:
+            type: integer
+            format: int32
+        example:
+          totalPages: 1
+          totalElements: 2
+      Product:
+        type: object
+        description: Product
+        required:
+          - id
+          - name
+          - description
+          - status
+          - created_on
+          - price
+        properties:
+          id:
+            $ref: '#/components/schemas/Identifier'
+          name:
+            type: string
+          description:
+            type: string
+          status:
+            $ref: '#/components/schemas/ProductStatus'
+          created_on:
+            type: string
+            format: 'date-time'
+          price:
+            type: number
+            format: float
+            description: Price of the product
+        additionalProperties: false
+        example:
+          id: 217742d7-827f-4fc1-b649-f59539dd65b9
+          name: Guitar
+          description: A high-quality guitar made from mahogany and spruce.
+          status: IN_STOCK
+          created_on: '2024-04-16T10:00:00Z'
+          price: 1200.00
+      Invoice:
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/Identifier'
+          userId:
+            $ref: '#/components/schemas/Identifier'
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Item'
+          createdOn:
+            type: string
+            format: date-time
+            description: The date and time when the invoice was created
+          totalPrice:
+            type: number
+            format: float
+            description: Total price of the invoice
+        required:
+          - id
+          - userId
+          - createdOn
+          - totalPrice
+        example:
+          id: 217742d7-827f-4fc1-b649-f59539dd65b9
+          userId: 3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+          items:
+            - product:
+                id: 4b3b4b3b-4b3b-4b3b-4b3b-4b3b4b3b4b3b
+                name: Guitar
+                description: A high-quality guitar made from mahogany and spruce.
+                status: IN_STOCK
+                created_on: '2024-04-16T10:00:00Z'
+                price: 1200.00
+              quantity: 2
+          createdOn: '2024-04-16T10:00:00Z'
+          totalPrice: 2499.99
+      UpdateProductCommand:
+        description: >-
+          Command to update a product, with partial update support.
+          Supporting partial updates means no fields are required. If a field is not provided, it is
+          left "as-is" in the update.
+          Also note that fields which can be set to null, must be flagged as nullable to distinguish
+          between the field being absent and the field being null.
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+            nullable: true
+        additionalProperties: false
+        example:
+          name: John Doe
+          description: Dolor sit amet
+      UpdateProductStatusCommand:
+        description: >-
+          Command to update the status of a product.
+        required:
+          - status
+        properties:
+          status:
+            $ref: '#/components/schemas/ProductStatus'
+        additionalProperties: false
+        example:
+          status: SOLD_OUT
+      ProductResponsePage:
+        description: Product page response
+        type: object
+        required:
+          - items
+          - paging
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Product'
+          paging:
+            $ref: '#/components/schemas/PagingData'
+      InvoiceResponsePage:
+        description: Product page response
+        type: object
+        required:
+          - items
+          - paging
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Invoice'
+          paging:
+            $ref: '#/components/schemas/PagingData'
+      Item:
+        type: object
+        properties:
+          product:
+            $ref: '#/components/schemas/Product'
+          quantity:
+            type: integer
+            format: int32
+        required:
+          - product
+          - quantity
+        example:
+          product:
+            id: 217742d7-827f-4fc1-b649-f59539dd65b9
+            name: Guitar
+            description: A high-quality guitar made from mahogany and spruce.
+            status: IN_STOCK
+            created_on: '2024-04-16T10:00:00Z'
+            price: 1200.00
+          quantity: 2
+      Cart:
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/Identifier'
+          userId:
+            $ref: '#/components/schemas/Identifier'
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Item'
+        required:
+          - id
+          - userId
+          - items
+        example:
+          id: 217742d7-827f-4fc1-b649-f59539dd65b9
+          userId: 217742d7-827f-4fc1-b649-f59539dd65b9
+          items:
+            - product:
+                id: 4b3b4b3b-4b3b-4b3b-4b3b-4b3b4b3b4b3b
+                name: Guitar
+                description: A high-quality guitar made from mahogany and spruce.
+                status: IN_STOCK
+                created_on: '2024-04-16T10:00:00Z'
+                price: 1200.00
+              quantity: 2
+      ErrorResponse:
+        type: object
+        description: >-
+          Data structure to show the error produced.
+          Error message must always provided.
+          Error code may be provided to help API clients identify and take actions on different
+          errors. Note that in this case a list of error codes must be documented.
+        required:
+          - message
+        properties:
+          code:
+            type: string
+            description: Error code
+            example: internal-error
+          message:
+            type: string
+            description: Error message description
+            example: An unexpected error ocurred
+        additionalProperties: false

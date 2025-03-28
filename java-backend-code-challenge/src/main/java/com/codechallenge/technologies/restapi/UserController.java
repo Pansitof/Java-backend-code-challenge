@@ -26,7 +26,6 @@ public class UserController {
         return ResponseEntity.ok(userDtoList);
     }
 
-
     @GetMapping("/api/users/{username}/")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         try {
@@ -74,5 +73,14 @@ public class UserController {
         }
     }
 
-
+    @GetMapping("/api/users/generate/{cantidad}/")
+    public ResponseEntity generateUsers(@PathVariable int cantidad){
+        try {
+            userService.generateUsers(cantidad);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
+    }
 }

@@ -34,4 +34,7 @@ public class UserManager {
         new UserDelete(repository).execute(username);
     }
 
+    public void generateUsers(int cantidad){
+        new UserGenerate(repository).execute(cantidad);
+    }
 }

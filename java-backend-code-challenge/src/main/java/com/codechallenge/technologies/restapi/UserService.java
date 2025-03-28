@@ -33,4 +33,7 @@ public class UserService {
     public void deleteUser(String userName){
         userManager.deleteUser(userName);
     }
+    public void generateUsers(int cantidad){
+        userManager.generateUsers(cantidad);
+    }
 }
