@@ -15,4 +15,5 @@ class UsersFinder {
     public List<User> execute() {
         return repository.getAll();
     }
+
 }

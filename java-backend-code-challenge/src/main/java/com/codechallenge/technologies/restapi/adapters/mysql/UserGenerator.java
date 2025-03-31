@@ -1,4 +1,7 @@
-package com.codechallenge.application.domain;
+package com.codechallenge.technologies.restapi.adapters.mysql;
+
+import com.codechallenge.application.domain.NumberGenerator;
+import com.codechallenge.application.domain.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +18,7 @@ public class UserGenerator {
         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String usuario = br.readLine();
         br.close();
-
+        System.out.println(usuario);
         String[] array = usuario.split("\"\\W*\"");
 
         String[] array2 = Arrays.toString(array).split("\\W+\\s*");

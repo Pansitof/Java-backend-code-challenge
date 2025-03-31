@@ -1,9 +1,10 @@
-package com.codechallenge.application.domain;
+package com.codechallenge.technologies.restapi;
 
+import com.codechallenge.application.domain.User;
+import com.codechallenge.technologies.restapi.adapters.mysql.UserGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

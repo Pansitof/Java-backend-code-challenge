@@ -1,4 +1,4 @@
-package com.codechallenge.application.nullobjectpractice;
+package com.practices.nullobjectpractice;
 
 class NullAnimal implements Animal {
 

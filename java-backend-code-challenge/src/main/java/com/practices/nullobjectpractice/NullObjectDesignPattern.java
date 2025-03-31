@@ -1,4 +1,4 @@
-package com.codechallenge.application.nullobjectpractice;
+package com.practices.nullobjectpractice;
 
 import java.util.List;
 

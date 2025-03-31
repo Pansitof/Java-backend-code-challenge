@@ -1,0 +1,10 @@
+{
+    data: list users
+    error: null
+}
+
+{
+    data: null
+    error: Error
+
+}
