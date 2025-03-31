@@ -2,16 +2,16 @@ package com.practices.resultpattern;
 
 public class Result {
     private boolean success;
-    private String failureMessage;
+    private Error error;
     private Exception exception;
 
     protected Result() {
         this.success = true;
     }
 
-    protected Result(String message) {
+    protected Result(Error error) {
         this.success = false;
-        failureMessage = message;
+        this.error = error;
     }
 
     protected Result(Exception e) {
@@ -23,8 +23,8 @@ public class Result {
         return new Result();
     }
 
-    public static Result failureResult(String message) {
-        return new Result(message);
+    public static Result failureResult(Error error) {
+        return new Result(error);
     }
 
     public static Result exceptionResult(Exception ex) {
@@ -35,8 +35,8 @@ public class Result {
         return success;
     }
 
-    public String getFailureMessage() {
-        return failureMessage;
+    public Error getError() {
+        return error;
     }
 
     public Exception getException() {
