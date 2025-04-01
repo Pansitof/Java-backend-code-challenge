@@ -1,5 +1,5 @@
 package com.practices.resultpattern;
 
 
-public record Error(String Code, String Description)
-{}
+public record Error(String Code, String Description) {
+}

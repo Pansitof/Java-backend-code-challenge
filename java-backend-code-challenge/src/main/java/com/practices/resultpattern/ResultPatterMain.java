@@ -14,9 +14,9 @@ public class ResultPatterMain {
     }
 
     private static void indicarResultados(Result result) {
-        System.out.println("¿Es éxitoso? "+result.isSuccess());
-        System.out.println("¿Hubo fallo? "+result.getError());
-        System.out.println("¿Hay Excepción? "+result.isException() +" "+result.getException());
+        System.out.println("¿Es éxitoso? " + result.isSuccess());
+        System.out.println("¿Hubo fallo? " + result.getError());
+        System.out.println("¿Hay Excepción? " + result.isException() + " " + result.getException());
         System.out.println("---");
     }
 }
